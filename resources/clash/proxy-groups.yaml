@@ -1,0 +1,56 @@
+---
+#---------------------------------------------------#
+## 配置参考:
+## https://github.com/Dreamacro/clash/wiki/configuration
+## https://github.com/Hackl0us/SS-Rule-Snippet/wiki/clash(X)
+#---------------------------------------------------#
+
+proxy-groups:
+  - name: Proxy
+    type: select
+    use:
+      - provider_all
+    proxies:
+      - fallback-auto
+      - auto-US
+      - auto-JP
+      - auto-SG
+      - auto-HK
+
+  - name: fallback-auto
+    type: fallback
+    proxies:
+      - auto-US
+      - auto-JP
+      - auto-SG
+      - auto-HK
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+
+  - name: auto-SG
+    type: url-test
+    use:
+      - provider_sg
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+
+  - name: auto-JP
+    type: url-test
+    use:
+      - provider_jp
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+
+  - name: auto-US
+    type: url-test
+    use:
+      - provider_us
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300
+
+  - name: auto-HK
+    type: url-test
+    use:
+      - provider_hk
+    url: "http://www.gstatic.com/generate_204"
+    interval: 300

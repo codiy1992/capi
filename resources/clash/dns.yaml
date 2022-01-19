@@ -1,0 +1,155 @@
+---
+#---------------------------------------------------#
+## 配置参考:
+## https://github.com/Dreamacro/clash/wiki/configuration
+## https://github.com/Hackl0us/SS-Rule-Snippet/wiki/clash(X)
+#---------------------------------------------------#
+
+# DNS server settings
+# This section is optional. When not present, the DNS server will be disabled.
+dns:
+  enable: true
+  listen: 0.0.0.0:53
+  ipv6: true # when the false, response to AAAA questions will be empty
+
+  # These nameservers are used to resolve the DNS nameserver hostnames below.
+  # Specify IP addresses only
+  default-nameserver:
+    - 114.114.114.114
+    - 8.8.8.8
+  enhanced-mode: fake-ip # or redir-host
+  fake-ip-range: 198.18.0.1/16 # Fake IP addresses pool CIDR
+  # use-hosts: true # lookup hosts and return IP record
+
+  # Hostnames in this list will not be resolved with fake IPs
+  # i.e. questions to these domain names will always be answered with their
+  # real IP addresses
+  fake-ip-filter:
+    # 以下域名列表参考自 vernesong/OpenClash 项目，并由 Hackl0us 整理补充
+    # === LAN ===
+    - "*.lan"
+    # === Linksys Wireless Router ===
+    - "*.linksys.com"
+    - "*.linksyssmartwifi.com"
+    # === Apple Software Update Service ===
+    - "swscan.apple.com"
+    - "mesu.apple.com"
+    # === Windows 10 Connnect Detection ===
+    - "*.msftconnecttest.com"
+    - "*.msftncsi.com"
+    # === NTP Service ===
+    - "time.*.com"
+    - "time.*.gov"
+    - "time.*.edu.cn"
+    - "time.*.apple.com"
+
+    - "time1.*.com"
+    - "time2.*.com"
+    - "time3.*.com"
+    - "time4.*.com"
+    - "time5.*.com"
+    - "time6.*.com"
+    - "time7.*.com"
+
+    - "ntp.*.com"
+    - "ntp.*.com"
+    - "ntp1.*.com"
+    - "ntp2.*.com"
+    - "ntp3.*.com"
+    - "ntp4.*.com"
+    - "ntp5.*.com"
+    - "ntp6.*.com"
+    - "ntp7.*.com"
+
+    - "*.time.edu.cn"
+    - "*.ntp.org.cn"
+    - "+.pool.ntp.org"
+
+    - "time1.cloud.tencent.com"
+    # === Music Service ===
+    ## NetEase
+    - "+.music.163.com"
+    - "*.126.net"
+    ## Baidu
+    - "musicapi.taihe.com"
+    - "music.taihe.com"
+    ## Kugou
+    - "songsearch.kugou.com"
+    - "trackercdn.kugou.com"
+    ## Kuwo
+    - "*.kuwo.cn"
+    ## JOOX
+    - "api-jooxtt.sanook.com"
+    - "api.joox.com"
+    - "joox.com"
+    ## QQ
+    - "+.y.qq.com"
+    - "+.music.tc.qq.com"
+    - "aqqmusic.tc.qq.com"
+    - "+.stream.qqmusic.qq.com"
+    ## Xiami
+    - "*.xiami.com"
+    ## Migu
+    - "+.music.migu.cn"
+    # === Game Service ===
+    ## Nintendo Switch
+    - "+.srv.nintendo.net"
+    ## Sony PlayStation
+    - "+.stun.playstation.net"
+    ## Microsoft Xbox
+    - "xbox.*.microsoft.com"
+    - "+.xboxlive.com"
+    # === Other ===
+    ## QQ Quick Login
+    - "localhost.ptlogin2.qq.com"
+    ## Golang
+    - "proxy.golang.org"
+    ## STUN Server
+    - "stun.*.*"
+    - "stun.*.*.*"
+
+  # Supports UDP, TCP, DoT, DoH. You can specify the port to connect to.
+  # All DNS questions are sent directly to the nameserver, without proxies
+  # involved. Clash answers the DNS question with the first result gathered.
+  nameserver:
+    - https://doh.pub/dns-query
+    - https://dns.alidns.com/dns-query
+    # - 114.114.114.114 # default value
+    # - 8.8.8.8 # default value
+    # - tls://dns.rubyfish.cn:853 # DNS over TLS
+    # - https://1.1.1.1/dns-query # DNS over HTTPS
+    # - dhcp://en0 # dns from dhcp
+
+  # When `fallback` is present, the DNS server will send concurrent requests
+  # to the servers in this section along with servers in `nameservers`.
+  # The answers from fallback servers are used when the GEOIP country
+  # is not `CN`.
+  # fallback:
+  #   - tcp://1.1.1.1
+
+  # If IP addresses resolved with servers in `nameservers` are in the specified
+  # subnets below, they are considered invalid and results from `fallback`
+  # servers are used instead.
+  #
+  # IP address resolved with servers in `nameserver` is used when
+  # `fallback-filter.geoip` is true and when GEOIP of the IP address is `CN`.
+  #
+  # If `fallback-filter.geoip` is false, results from `nameserver` nameservers
+  # are always used if not match `fallback-filter.ipcidr`.
+  #
+  # This is a countermeasure against DNS pollution attacks.
+  fallback-filter:
+    geoip: false
+    geoip-code: CN
+    ipcidr:
+      - 240.0.0.0/4
+      - 0.0.0.0/32
+    # domain:
+    # - '+.google.com'
+    # - '+.facebook.com'
+    # - '+.youtube.com'
+
+  # Lookup domains via specific nameservers
+  # nameserver-policy:
+  #   'www.baidu.com': '114.114.114.114'
+  #   '+.internal.crop.com': '10.0.0.1'
