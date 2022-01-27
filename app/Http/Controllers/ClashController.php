@@ -29,7 +29,9 @@ class ClashController extends Controller
             // Shadowrocket
             preg_match('/Shadowrocket/i', $user_agent) ||
             // ClashX
-            preg_match('/com\.west2online\.ClashX/i', $user_agent)
+            preg_match('/com\.west2online\.ClashX/i', $user_agent) ||
+            // OpenWrt
+            (preg_match('/Clash/', $user_agent) && $name == 'openwrt')
         ) {
             return response($service->config($name), 200, [
                 'Content-Type' => 'application/x-yaml',
