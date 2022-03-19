@@ -25,6 +25,7 @@ dns:
   # i.e. questions to these domain names will always be answered with their
   # real IP addresses
   fake-ip-filter:
+    - "*.codiy.net"
     # 以下域名列表参考自 vernesong/OpenClash 项目，并由 Hackl0us 整理补充
     # === LAN ===
     - "*.lan"
