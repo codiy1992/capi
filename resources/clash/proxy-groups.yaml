@@ -16,6 +16,7 @@ proxy-groups:
       - auto-JP
       - auto-SG
       - auto-HK
+      - DIRECT
 
   - name: fallback-auto
     type: fallback
