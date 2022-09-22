@@ -56,7 +56,7 @@ class ClashService
             'name'    => 'Proxy',
             'type'    => 'select',
             'use'     => ['provider_all'],
-            'proxies' => ['DIRECT', 'fallback-auto'],
+            'proxies' => ['fallback-auto', 'DIRECT'],
         ];
         $group_fallback = [
             'name'     => 'fallback-auto',
