@@ -37,7 +37,7 @@ class ClashController extends Controller
                 'Content-Type' => 'application/x-yaml',
             ]);
         }
-        return response('', 200, [
+        return response($service->config($name), 200, [
             'Content-Type' => 'application/x-yaml',
         ]);
     }
