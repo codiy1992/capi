@@ -16,5 +16,9 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('config/{name}', 'ClashController@config')
    ->where('name', '[A-Za-z0-9-]+');
+Route::head('config/{name}', 'ClashController@config')
+   ->where('name', '[A-Za-z0-9-]+');
 Route::get('proxies/{name}', 'ClashController@proxies')
+   ->where('name', '[A-Za-z0-9-]+');
+Route::head('proxies/{name}', 'ClashController@proxies')
    ->where('name', '[A-Za-z0-9-]+');
