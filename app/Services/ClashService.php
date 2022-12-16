@@ -130,6 +130,7 @@ class ClashService
         if (!$config = Config::where(['name' => $config_name])->first()) {
             return ;
         }
+        empty($group_names) && $group_names = $config->groups;
         $groups = array_intersect(explode(',', $group_names), explode(',', $config->groups));
         $servers = Server::whereIn('group', $groups)
                 ->when(
