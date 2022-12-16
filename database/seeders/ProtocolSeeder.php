@@ -32,7 +32,7 @@ class ProtocolSeeder extends Seeder
             [
                 'name'  => 'ss',
                 'transport' => 'ws_web_tls',
-                'status'    => 1,
+                'status'    => 0,
                 'port'      => 443,
                 'tls'       => 1,
                 'cipher'    => 'chacha20-ietf-poly1305',
@@ -152,7 +152,7 @@ class ProtocolSeeder extends Seeder
             [
                 'name'  => 'vmess',
                 'transport' => 'h2c_web_tls',
-                'status'    => 1,
+                'status'    => 0,
                 'port'      => 443,
                 'tls'       => 1,
                 'cipher'    => 'auto',
