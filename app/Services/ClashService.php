@@ -82,6 +82,12 @@ class ClashService
                     ),
                 'path' => "./providers/{$name}.yaml",
                 'interval' => $interval,
+                'type' => 'http',
+                'health-check' => [
+                    "url": "http://www.gstatic.com/generate_204",
+                    "enable": true,
+                    "interval": 600
+                ],
             ];
             $group_select['proxies'][] = $auto_name;
             $group_fallback['proxies'][] = $auto_name;
@@ -98,6 +104,12 @@ class ClashService
             ),
             'interval' => $interval,
             'path' => './providers/all.yaml',
+            'type' => 'http',
+            'health-check' => [
+                "url": "http://www.gstatic.com/generate_204",
+                "enable": true,
+                "interval": 600
+            ],
         ];
 
         return [
