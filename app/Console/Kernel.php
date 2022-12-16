@@ -25,10 +25,6 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        $schedule->command('update-group-proxies')
-            ->onOneServer()
-            ->cron("* * * * *")
-            ->appendOutputTo(storage_path('logs/update-group-proxies.log'));
     }
 
     /**

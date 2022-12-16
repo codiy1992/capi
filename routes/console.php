@@ -18,9 +18,3 @@ Artisan::command('inspire', function () {
     $this->comment(Inspiring::quote());
 })->purpose('Display an inspiring quote');
 
-Artisan::command('test', function () {
-    $proxy = App\Models\Proxy::find(1);
-    dd($proxy->groups);
-    // $group = App\Models\Group::find(1);
-    // dd($group->proxies);
-})->purpose('test');
