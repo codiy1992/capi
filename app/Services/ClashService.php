@@ -76,17 +76,17 @@ class ClashService
                 'interval' => 300,
             ];
             $providers[$provider_name] = [
-                'url' => sprintf(
+                'url'      => sprintf(
                         "{$server_host}/proxies/%s?groups=%s&shuffle=%s&single=%s",
                         $config_name, $name, $shuffle, $single
                     ),
-                'path' => "./providers/{$name}.yaml",
+                'path'     => "./providers/{$name}.yaml",
                 'interval' => $interval,
-                'type' => 'http',
+                'type'     => 'http',
                 'health-check' => [
-                    "url": "http://www.gstatic.com/generate_204",
-                    "enable": true,
-                    "interval": 600
+                    'url'      => 'http://www.gstatic.com/generate_204',
+                    'enable'   => true,
+                    'interval' => 600
                 ],
             ];
             $group_select['proxies'][] = $auto_name;
@@ -103,12 +103,12 @@ class ClashService
                     $config_name, implode(',', $group_names), $shuffle, $single
             ),
             'interval' => $interval,
-            'path' => './providers/all.yaml',
-            'type' => 'http',
+            'path'     => './providers/all.yaml',
+            'type'     => 'http',
             'health-check' => [
-                "url": "http://www.gstatic.com/generate_204",
-                "enable": true,
-                "interval": 600
+                'url'      => 'http://www.gstatic.com/generate_204',
+                'enable'   => true,
+                'interval' => 600
             ],
         ];
 
