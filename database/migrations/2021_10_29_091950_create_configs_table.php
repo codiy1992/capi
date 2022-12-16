@@ -22,8 +22,6 @@ class CreateConfigsTable extends Migration
             $table->tinyInteger('shuffle')->default(0)->comment('proxies 是否乱序返回 0:否 1:是');
             $table->tinyInteger('single')->default(0)->comment('proxies 是否返回单一节点 0:否 1:是');
             $table->json('exclude')->comment('过滤规则');
-            $table->unsignedInteger('created_at')->default(0)->comment('创建时间');
-            $table->unsignedInteger('updated_at')->default(0)->comment('更新时间');
             $table->unique('name');
         });
     }

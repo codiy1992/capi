@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Config extends Model
 {
-    protected $dateFormat = 'U';
 
     /**
      * The attributes that are mass assignable.
@@ -21,8 +20,6 @@ class Config extends Model
         'shuffle',
         'single',
         'exclude',
-        'created_at',
-        'updated_at',
     ];
 
     protected $casts = [
