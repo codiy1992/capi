@@ -148,7 +148,7 @@ class ClashService
                     continue;
                 }
                 $proxy = VariedProxy::format($protocol);
-                $proxy['name'] = sprintf("%s.%s.%s", $server->group, $protocol->name, $protocol->transport);
+                $proxy['name'] = sprintf("%s.%s.%s.%s", $server->group, $server->name, $protocol->name, $protocol->transport);
                 $proxy['type'] = $protocol->name;
                 $proxy['server'] = $protocol->tls ? sprintf('%s.0x256.com', $server->ipv4) : $server->ipv4;
                 $proxies[] = $proxy;
