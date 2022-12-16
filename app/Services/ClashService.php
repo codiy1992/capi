@@ -146,7 +146,7 @@ class ClashService
         $proxies = [];
         foreach($servers as $server) {
             foreach($protocols as $protocol) {
-                if (!$protocol->status && !$config->debug && !$server->debug) {
+                if (!$protocol->status && !($config->debug && $server->debug)) {
                     continue;
                 }
                 $proxy = VariedProxy::format($protocol);
