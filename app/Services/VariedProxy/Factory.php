@@ -5,7 +5,7 @@ namespace App\Services\VariedProxy;
 use App\Error\Code;
 use BadMethodCallException;
 use App\Exceptions\BusinessException;
-use App\Models\Proxy;
+use App\Models\Protocol;
 
 class Factory
 {
@@ -55,8 +55,8 @@ class Factory
         }
     }
 
-    protected function format(Proxy $proxy)
+    protected function format(Protocol $protocol)
     {
-        return (new static::$protocols[$proxy->type]($proxy))->format();
+        return (new static::$protocols[$protocol->name]($protocol))->format();
     }
 }

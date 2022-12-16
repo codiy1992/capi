@@ -20,14 +20,16 @@ class Config extends Model
         'interval',
         'shuffle',
         'single',
-        'types',
-        'ports',
+        'exclude',
         'created_at',
         'updated_at',
     ];
 
     protected $casts = [
-        'types' => 'array',
-        'ports' => 'array',
+        'exclude' => 'array',
+    ];
+
+    protected $attributes = [
+        'exclude' => '[]',
     ];
 }

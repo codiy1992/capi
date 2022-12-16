@@ -2,28 +2,28 @@
 
 namespace App\Services\VariedProxy\Protocols;
 
-use App\Models\Proxy;
+use App\Models\Protocol;
 
 class Http
 {
 
-    protected $proxy;
+    protected $protocol;
 
-    public function __construct(Proxy $proxy = null)
+    public function __construct(Protocol $protocol = null)
     {
-        $this->proxy = $proxy;
+        $this->protocol = $protocol;
     }
 
-    public function format(Proxy $proxy = null)
+    public function format(Protocol $protocol = null)
     {
-        $proxy = $proxy ?: $this->proxy;
+        $protocol = $protocol ?: $this->protocol;
         return array_merge(
-            $proxy->only([
+            $protocol->only([
                 'name',
                 'type',
                 'server',
                 'port']),
-            $proxy->extra);
+            $protocol->extra);
     }
 
 }

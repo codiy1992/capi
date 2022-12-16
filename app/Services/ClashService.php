@@ -2,8 +2,8 @@
 
 namespace App\Services;
 
-use App\Models\Proxy;
-use App\Models\Group;
+use App\Models\Protocol;
+use App\Models\Server;
 use App\Models\Config;
 use App\Facades\VariedProxy;
 use Symfony\Component\Yaml\Yaml;
@@ -50,7 +50,6 @@ class ClashService
         $proxy_providers = [];
         $proxy_groups = [];
         $server_host = request()->getSchemeAndHttpHost();
-        $groups = Group::whereIn('name', $group_names)->get()->keyBy('name');
 
         $group_select = [
             'name'    => 'Proxy',
@@ -67,14 +66,6 @@ class ClashService
         ];
 
         foreach($group_names as $name) {
-            if (! $group = $groups[$name] ?? null) {
-                continue;
-            }
-            $group->url = sprintf(
-                "{$server_host}/proxies/%s?groups=%s&shuffle=%s&single=%s",
-                $config_name, $name, $shuffle, $single);
-            $group->path = "./providers/{$name}.yaml";
-            $group->interval = $interval;
             $provider_name = sprintf("provier_%s", $name);
             $auto_name = sprintf("auto-%s", strtoupper($name));
             $group_auto = [
@@ -84,7 +75,14 @@ class ClashService
                 'url'      => 'http://www.gstatic.com/generate_204',
                 'interval' => 300,
             ];
-            $providers[$provider_name] = $group->toArray();
+            $providers[$provider_name] = [
+                'url' => sprintf(
+                        "{$server_host}/proxies/%s?groups=%s&shuffle=%s&single=%s",
+                        $config_name, $name, $shuffle, $single
+                    ),
+                'path' => "./providers/{$name}.yaml",
+                'interval' => $interval,
+            ];
             $group_select['proxies'][] = $auto_name;
             $group_fallback['proxies'][] = $auto_name;
             $proxy_groups[] = $group_auto;
@@ -93,13 +91,14 @@ class ClashService
         array_unshift($proxy_groups, $group_fallback);
         array_unshift($proxy_groups, $group_select);
 
-        $provider_all = app(Group::class);
-        $provider_all->url = sprintf(
-            "{$server_host}/proxies/%s?groups=%s&shuffle=%s&single=%s",
-            $config_name, implode(',', $group_names), $shuffle, $single);
-        $provider_all->interval = $interval;
-
-        $providers['provider_all'] = $provider_all->toArray();
+        $providers['provider_all'] = [
+            'url' => sprintf(
+                    "{$server_host}/proxies/%s?groups=%s&shuffle=%s&single=%s",
+                    $config_name, implode(',', $group_names), $shuffle, $single
+            ),
+            'interval' => $interval,
+            'path' => './providers/all.yaml',
+        ];
 
         return [
             'proxy-providers' => $providers,
@@ -117,35 +116,34 @@ class ClashService
         if (!$config = Config::where(['name' => $config_name])->first()) {
             return ;
         }
-        empty($group_names) && $group_names = $config->groups;
-        $group_names = explode(',', $group_names);
-
-        $groups = Group::with(['proxies'=> function ($query) use ($config) {
-            return $query
-                ->when(!empty($config->types['allow']),
-                fn($q) => $q->whereIn('type', $config->types['allow']))
-                ->when(!empty($config->types['deny']),
-                fn($q) => $q->whereNotIn('type', $config->types['deny']))
-                ->when(!empty($config->ports['allow']),
-                fn($q) => $q->whereIn('port', $config->ports['allow']))
-                ->when(!empty($config->ports['deny']),
-                fn($q) => $q->whereNotIn('port', $config->ports['deny']));
-        }])->whereIn('name', $group_names)->get()->keyBy('name');
-
-        $varied_proxies = [];
-        foreach($group_names as $name) {
-            $group = $groups[$name] ?? null;
-            $proxies = optional($group)->proxies;
-            if (!empty($proxies)) {
-                $temp = [];
-                foreach($proxies as $proxy) {
-                    $temp[] = VariedProxy::format($proxy);
+        $groups = array_intersect(explode(',', $group_names), explode(',', $config->groups));
+        $servers = Server::whereIn('group', $groups)
+                ->when(
+                    !empty($config->exclude['servers']),
+                    fn($q) => $q->whereNotIn('name', $config->exclude['servers'])
+                )->get();
+        $protocols = Protocol::when(
+                    !empty($config->exclude['protocols']),
+                    fn($q) => $q->whereNotIn('name', $config->exclude['protocols'])
+                )->when(
+                    !empty($config->exclude['transports']),
+                    fn($q) => $q->whereNotIn('transport', $config->exclude['transports'])
+                )->get();
+        $proxies = [];
+        foreach($servers as $server) {
+            foreach($protocols as $protocol) {
+                if (!$protocol->status && $server->protocol) {
+                    continue;
                 }
-                $shuffle && shuffle($temp);
-                $single && $temp = [array_shift($temp)];
-                $varied_proxies = array_merge($varied_proxies, $temp);
+                $proxy = VariedProxy::format($protocol);
+                $proxy['name'] = sprintf("%s.%s.%s", $server->group, $protocol->name, $protocol->transport);
+                $proxy['type'] = $protocol->name;
+                $proxy['server'] = $protocol->tls ? sprintf('%s.0x256.com', $server->ipv4) : $server->ipv4;
+                $proxies[] = $proxy;
             }
+            $shuffle && shuffle($proxies);
+            $single && $proxies = [array_shift($proxies)];
         }
-        return Yaml::dump(['proxies' => $varied_proxies,]);
+        return Yaml::dump(['proxies' => $proxies,]);
     }
 }
