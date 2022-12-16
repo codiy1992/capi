@@ -64,8 +64,10 @@ class ClashService
             'interval' => 300,
             'proxies'  => [],
         ];
-
+        $valid_groups = array_unique(Server::whereIn('group', $group_names)->pluck('group')->toArray());
+        array_walk($valid_groups, function(&$value) { $value = trim(strtolower($value)); });
         foreach($group_names as $name) {
+            if (!in_array($name, $valid_groups)) {continue;}
             $provider_name = sprintf("provier_%s", $name);
             $auto_name = sprintf("auto-%s", strtoupper($name));
             $group_auto = [
