@@ -181,4 +181,14 @@ class ClashService
         }
         return $proxies;
     }
+
+    public function updateServer(array $inputs)
+    {
+        if ($server = Server::where(['ipv4' => $inputs['ipv4_old']])->first()) {
+            $server->ipv4 = $inputs['ipv4_new'];
+            $server->save();
+            return $server;
+        }
+        return [];
+    }
 }

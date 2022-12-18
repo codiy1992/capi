@@ -17,4 +17,6 @@ use Illuminate\Support\Facades\Route;
 Route::match(['GET', 'HEAD'], 'config/{name}', 'ClashController@config')
    ->where('name', '[A-Za-z0-9-]+');
 Route::match(['GET', 'HEAD'], 'proxies/{name}', 'ClashController@proxies')
-   ->where('name', '[A-Za-z0-9-]+');
+    ->where('name', '[A-Za-z0-9-]+');
+
+Route::middleware('shield:cray')->post('server/update', 'ClashController@updateServer');

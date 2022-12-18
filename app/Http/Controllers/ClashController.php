@@ -71,4 +71,13 @@ class ClashController extends Controller
             'Content-Type' => 'application/x-yaml',
         ]);
     }
+
+    public function updateServer(Request $request, ClashService $service)
+    {
+        $inputs = $this->validate($request, [
+            'ipv4_old' => 'required|ipv4',
+            'ipv4_new' => 'required|ipv4',
+        ]);
+        return response($service->updateServer($inputs));
+    }
 }
