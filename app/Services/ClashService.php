@@ -176,9 +176,7 @@ class ClashService
                 $proxy['server'] = str_replace('.0x256.com', '', $proxy['server']);
                 $proxy['server'] = str_replace('.', '', $proxy['server']) . '.0x256.com';
                 $proxy['port'] = 443;
-                if ($protocol == 'vmess') {
-                    $proxy['servername'] = $proxy['server'];
-                }
+                $proxy['servername'] = $proxy['server'];
             }
         }
         return $proxies;
