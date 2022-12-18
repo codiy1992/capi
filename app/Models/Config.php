@@ -7,10 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 class Config extends Model
 {
     protected $casts = [
+        'extra' => 'array',
         'exclude' => 'array',
     ];
 
     protected $attributes = [
+        'extra' => '[]',
         'exclude' => '[]',
     ];
 }

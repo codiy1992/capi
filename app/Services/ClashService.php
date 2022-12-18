@@ -159,6 +159,28 @@ class ClashService
             $shuffle && shuffle($proxies);
             $single && $proxies = [array_shift($proxies)];
         }
-        return Yaml::dump(['proxies' => $proxies,]);
+        return Yaml::dump(['proxies' => $this->cdnAdapt($proxies, $config),]);
+    }
+
+    public function cdnAdapt($proxies, Config $config)
+    {
+        foreach ($proxies as &$proxy) {
+            $array = explode('.', $proxy['name']);
+            $transport = array_pop($array);
+            $protocol = array_pop($array);
+            if (!empty($config->extra['cdn']) && in_array(
+                    sprintf('%s.%s', $protocol, $transport),
+                    $config->extra['cdn']
+            )) {
+                $proxy['name'] = "{$proxy['name']}_cdn";
+                $proxy['server'] = str_replace('.0x256.com', '', $proxy['server']);
+                $proxy['server'] = str_replace('.', '', $proxy['server']) . '.0x256.com';
+                $proxy['port'] = 443;
+                if ($protocol == 'vmess') {
+                    $proxy['servername'] = $proxy['server'];
+                }
+            }
+        }
+        return $proxies;
     }
 }

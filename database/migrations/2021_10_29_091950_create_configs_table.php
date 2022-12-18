@@ -23,6 +23,7 @@ class CreateConfigsTable extends Migration
             $table->tinyInteger('single')->default(0)->comment('proxies 是否返回单一节点 0:否 1:是');
             $table->tinyInteger('debug')->default(0)->comment('协议调试 0:否 1:是');
             $table->json('exclude')->comment('过滤规则');
+            $table->json('extra')->comment('额外规则');
             $table->unique('name');
         });
     }
