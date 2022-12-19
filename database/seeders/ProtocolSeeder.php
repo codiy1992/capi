@@ -257,7 +257,7 @@ class ProtocolSeeder extends Seeder
             ],
             [
                 'name'  => 'vmess',
-                'transport' => 'ws_web_tls',
+                'transport' => 'websocket',
                 'status'    => 1,
                 'port'      => 443,
                 'tls'       => 1,
