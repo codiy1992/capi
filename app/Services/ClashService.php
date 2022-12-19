@@ -159,10 +159,10 @@ class ClashService
             $shuffle && shuffle($proxies);
             $single && $proxies = [array_shift($proxies)];
         }
-        return Yaml::dump(['proxies' => $this->cdnAdapt($proxies, $config),]);
+        return Yaml::dump(['proxies' => $this->cdnWrap($proxies, $config),]);
     }
 
-    public function cdnAdapt($proxies, Config $config)
+    public function cdnWrap($proxies, Config $config)
     {
         foreach ($proxies as &$proxy) {
             $array = explode('.', $proxy['name']);
