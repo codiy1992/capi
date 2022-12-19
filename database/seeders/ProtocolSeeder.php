@@ -131,45 +131,6 @@ class ProtocolSeeder extends Seeder
             ],
             [
                 'name'  => 'vmess',
-                'transport' => 'tcp_http_mask',
-                'status'    => 0,
-                'port'      => 12002,
-                'tls'       => 0,
-                'cipher'    => 'none',
-                'alterId'   => 0,
-                'uuid'      => '931c89af-a362-44c5-80d2-bda173592f68',
-                'password'  => '',
-                'extra'     => json_encode([
-                    'tls'       => false,
-                    'network'   => 'http',
-                    'http-opts' => [
-                        'path'    => ['/', '/video'],
-                        'method'  => 'GET',
-                        'headers' => [
-                            'Host'            => [
-                                'cm.bilibili.com',
-                                'data.bilibili.com',
-                                'pcsdata.baidu.com',
-                                'static.awsevents.cn',
-                                'merak.alicdn.com',
-                            ],
-                            'Pragma'          => [
-                                'no-cache',
-                            ],
-                            'Connection'      => [
-                                'keep-alive',
-                            ],
-                            'User-Agent'      => [
-                                'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.164 Safari/537.36',
-                                'Mozilla/5.0 (iPhone; CPU iPhone OS 14_7 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/14.1.1 Mobile/15E148 Safari/604.1',
-                            ],
-                            'Accept-Encoding' => ['gzip, deflate'],
-                        ],
-                    ],
-                ]),
-            ],
-            [
-                'name'  => 'vmess',
                 'transport' => 'h2c_web_tls',
                 'status'    => 0,
                 'port'      => 443,
