@@ -133,9 +133,9 @@ class ProtocolSeeder extends Seeder
             [
                 'name'  => 'vmess',
                 'transport' => 'tcp',
-                'port'      => 12000,
                 'status'    => 0,
                 'remark'    => '',
+                'port'      => 12000,
                 'tls'       => 0,
                 'cipher'    => 'none',
                 'alterId'   => 0,
