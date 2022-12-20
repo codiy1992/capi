@@ -55,19 +55,6 @@ class ProtocolSeeder extends Seeder
             // --------------------- Trojan ---------------------
             [
                 'name'  => 'trojan',
-                'transport' => 'tcp_bare',
-                'status'    => 0,
-                'remark'    => '',
-                'port'      => 11000,
-                'tls'       => 0,
-                'cipher'    => '',
-                'alterId'   => 0,
-                'uuid'      => '',
-                'password'  => 'OxprCzKv7yxGz0i7',
-                'extra'     => json_encode([]),
-            ],
-            [
-                'name'  => 'trojan',
                 'transport' => 'tcp',
                 'status'    => 1,
                 'remark'    => '',
