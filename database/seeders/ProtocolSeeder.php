@@ -20,7 +20,7 @@ class ProtocolSeeder extends Seeder
             // --------------------- Shadowsocks ---------------------
             [
                 'name'  => 'ss',
-                'transport' => 'tcp',
+                'transport' => 'tcp_bare',
                 'status'    => 0,
                 'remark'    => '',
                 'port'      => 10000,
@@ -55,7 +55,7 @@ class ProtocolSeeder extends Seeder
             // --------------------- Trojan ---------------------
             [
                 'name'  => 'trojan',
-                'transport' => 'tcp',
+                'transport' => 'tcp_bare',
                 'status'    => 0,
                 'remark'    => '',
                 'port'      => 11000,
@@ -68,7 +68,7 @@ class ProtocolSeeder extends Seeder
             ],
             [
                 'name'  => 'trojan',
-                'transport' => 'tcp_tls',
+                'transport' => 'tcp',
                 'status'    => 1,
                 'remark'    => '',
                 'port'      => 11001,
@@ -148,7 +148,7 @@ class ProtocolSeeder extends Seeder
             // --------------------- Vmess ---------------------
             [
                 'name'  => 'vmess',
-                'transport' => 'tcp',
+                'transport' => 'tcp_bare',
                 'status'    => 0,
                 'remark'    => '',
                 'port'      => 12000,
@@ -164,7 +164,7 @@ class ProtocolSeeder extends Seeder
             ],
             [
                 'name'  => 'vmess',
-                'transport' => 'tcp_tls',
+                'transport' => 'tcp',
                 'status'    => 1,
                 'remark'    => '',
                 'port'      => 12001,
