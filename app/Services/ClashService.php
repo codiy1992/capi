@@ -182,7 +182,7 @@ class ClashService
                 $result[] = $proxy;
             }
         }
-        return $proxies;
+        return $result;
     }
 
     public function updateServer(array $inputs)
