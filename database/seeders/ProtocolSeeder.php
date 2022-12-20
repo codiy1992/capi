@@ -63,6 +63,32 @@ class ProtocolSeeder extends Seeder
             ],
             [
                 'name'  => 'trojan',
+                'transport' => 'http2',
+                'status'    => 1,
+                'port'      => 443,
+                'tls'       => 1,
+                'cipher'    => '',
+                'alterId'   => 0,
+                'uuid'      => '',
+                'password'  => 'OxprCzKv7yxGz0i7',
+                'extra'     => json_encode([
+                    'tls'              => true,
+                    'network'          => 'h2',
+                    'skip-cert-verify' => true,
+                    'h2-opts' => [
+                        'path'             => '/trojan_h2c',
+                        'host'             => [
+                            'cm.bilibili.com',
+                            'data.bilibili.com',
+                            'pcsdata.baidu.com',
+                            'static.awsevents.cn',
+                            'merak.alicdn.com',
+                        ],
+                    ],
+                ]),
+            ],
+            [
+                'name'  => 'trojan',
                 'transport' => 'grpc',
                 'status'    => 1,
                 'port'      => 443,
@@ -131,7 +157,7 @@ class ProtocolSeeder extends Seeder
             ],
             [
                 'name'  => 'vmess',
-                'transport' => 'h2c_web_tls',
+                'transport' => 'http2',
                 'status'    => 0,
                 'port'      => 443,
                 'tls'       => 1,
@@ -144,33 +170,7 @@ class ProtocolSeeder extends Seeder
                     'network'          => 'h2',
                     'skip-cert-verify' => true,
                     'h2-opts' => [
-                        'path'             => '/h2_bare',
-                        'host'             => [
-                            'cm.bilibili.com',
-                            'data.bilibili.com',
-                            'pcsdata.baidu.com',
-                            'static.awsevents.cn',
-                            'merak.alicdn.com',
-                        ],
-                    ],
-                ]),
-            ],
-            [
-                'name'  => 'vmess',
-                'transport' => 'http2_tls',
-                'status'    => 1,
-                'port'      => 12101,
-                'tls'       => 1,
-                'cipher'    => 'auto',
-                'alterId'   => 0,
-                'uuid'      => '931c89af-a362-44c5-80d2-bda173592f68',
-                'password'  => '',
-                'extra'     => json_encode([
-                    'tls'              => true,
-                    'network'          => 'h2',
-                    'skip-cert-verify' => true,
-                    'h2-opts' => [
-                        'path'             => '/h2_tls',
+                        'path'             => '/vmess_h2c',
                         'host'             => [
                             'cm.bilibili.com',
                             'data.bilibili.com',

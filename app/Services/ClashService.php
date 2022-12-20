@@ -154,6 +154,7 @@ class ClashService
                 $proxy['name'] = sprintf("%s.%s.%s.%s", $server->group, $server->name, $protocol->name, $protocol->transport);
                 $proxy['type'] = $protocol->name;
                 $proxy['server'] = $protocol->tls ? sprintf('%s.0x256.com', $server->ipv4) : $server->ipv4;
+                $protocol->transport == 'http2' && $proxy['sni'] = $proxy['server'];
                 $proxies[] = $proxy;
             }
             $shuffle && shuffle($proxies);
@@ -177,6 +178,7 @@ class ClashService
                 $proxy['server'] = str_replace('.', '', $proxy['server']) . '.0x256.com';
                 $proxy['port'] = 443;
                 $proxy['servername'] = $proxy['server'];
+                $transport == 'http2' && $proxy['sni'] = $proxy['server'];
             }
         }
         return $proxies;
