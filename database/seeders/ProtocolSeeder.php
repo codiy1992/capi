@@ -17,6 +17,7 @@ class ProtocolSeeder extends Seeder
     {
         DB::table('protocols')->truncate();
         DB::table('protocols')->insert([
+            // --------------------- Shadowsocks ---------------------
             [
                 'name'  => 'ss',
                 'transport' => 'tcp',
@@ -51,13 +52,14 @@ class ProtocolSeeder extends Seeder
                     ],
                 ]),
             ],
+            // --------------------- Trojan ---------------------
             [
                 'name'  => 'trojan',
                 'transport' => 'tcp',
                 'status'    => 0,
                 'remark'    => '',
                 'port'      => 11000,
-                'tls'       => 1,
+                'tls'       => 0,
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
@@ -66,30 +68,16 @@ class ProtocolSeeder extends Seeder
             ],
             [
                 'name'  => 'trojan',
-                'transport' => 'http2',
-                'status'    => 0,
-                'remark'    => '没跑通',
-                'port'      => 443,
+                'transport' => 'tcp_tls',
+                'status'    => 1,
+                'remark'    => '',
+                'port'      => 11001,
                 'tls'       => 1,
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
                 'password'  => 'OxprCzKv7yxGz0i7',
-                'extra'     => json_encode([
-                    'tls'              => true,
-                    'network'          => 'h2',
-                    'skip-cert-verify' => true,
-                    'h2-opts' => [
-                        'path'             => '/trojan_h2c',
-                        'host'             => [
-                            'cm.bilibili.com',
-                            'data.bilibili.com',
-                            'pcsdata.baidu.com',
-                            'static.awsevents.cn',
-                            'merak.alicdn.com',
-                        ],
-                    ],
-                ]),
+                'extra'     => json_encode([]),
             ],
             [
                 'name'  => 'trojan',
@@ -131,6 +119,34 @@ class ProtocolSeeder extends Seeder
                 ]),
             ],
             [
+                'name'  => 'trojan',
+                'transport' => 'http2',
+                'status'    => 0,
+                'remark'    => '没跑通',
+                'port'      => 443,
+                'tls'       => 1,
+                'cipher'    => '',
+                'alterId'   => 0,
+                'uuid'      => '',
+                'password'  => 'OxprCzKv7yxGz0i7',
+                'extra'     => json_encode([
+                    'tls'              => true,
+                    'network'          => 'h2',
+                    'skip-cert-verify' => true,
+                    'h2-opts' => [
+                        'path'             => '/trojan_h2c',
+                        'host'             => [
+                            'cm.bilibili.com',
+                            'data.bilibili.com',
+                            'pcsdata.baidu.com',
+                            'static.awsevents.cn',
+                            'merak.alicdn.com',
+                        ],
+                    ],
+                ]),
+            ],
+            // --------------------- Vmess ---------------------
+            [
                 'name'  => 'vmess',
                 'transport' => 'tcp',
                 'status'    => 0,
@@ -161,33 +177,6 @@ class ProtocolSeeder extends Seeder
                     'tls'              => true,
                     'network'          => 'tcp',
                     'skip-cert-verify' => true,
-                ]),
-            ],
-            [
-                'name'  => 'vmess',
-                'transport' => 'http2',
-                'status'    => 0,
-                'remark'    => '没跑通',
-                'port'      => 443,
-                'tls'       => 1,
-                'cipher'    => 'auto',
-                'alterId'   => 0,
-                'uuid'      => '931c89af-a362-44c5-80d2-bda173592f68',
-                'password'  => '',
-                'extra'     => json_encode([
-                    'tls'              => true,
-                    'network'          => 'h2',
-                    'skip-cert-verify' => true,
-                    'h2-opts' => [
-                        'path'             => '/vmess_h2c',
-                        'host'             => [
-                            'cm.bilibili.com',
-                            'data.bilibili.com',
-                            'pcsdata.baidu.com',
-                            'static.awsevents.cn',
-                            'merak.alicdn.com',
-                        ],
-                    ],
                 ]),
             ],
             [
@@ -228,6 +217,77 @@ class ProtocolSeeder extends Seeder
                     'ws-opts'          => [
                         'path' => '/vmess_ws',
                     ],
+                ]),
+            ],
+            [
+                'name'  => 'vmess',
+                'transport' => 'http2',
+                'status'    => 0,
+                'remark'    => '没跑通',
+                'port'      => 443,
+                'tls'       => 1,
+                'cipher'    => 'auto',
+                'alterId'   => 0,
+                'uuid'      => '931c89af-a362-44c5-80d2-bda173592f68',
+                'password'  => '',
+                'extra'     => json_encode([
+                    'tls'              => true,
+                    'network'          => 'h2',
+                    'skip-cert-verify' => true,
+                    'h2-opts' => [
+                        'path'             => '/vmess_h2c',
+                        'host'             => [
+                            'cm.bilibili.com',
+                            'data.bilibili.com',
+                            'pcsdata.baidu.com',
+                            'static.awsevents.cn',
+                            'merak.alicdn.com',
+                        ],
+                    ],
+                ]),
+            ],
+            [
+                'name'  => 'vmess',
+                'transport' => 'h2_tls',
+                'status'    => 1,
+                'remark'    => '',
+                'port'      => 12003,
+                'tls'       => 1,
+                'cipher'    => 'auto',
+                'alterId'   => 0,
+                'uuid'      => '931c89af-a362-44c5-80d2-bda173592f68',
+                'password'  => '',
+                'extra'     => json_encode([
+                    'tls'              => true,
+                    'network'          => 'h2',
+                    'skip-cert-verify' => true,
+                    'h2-opts' => [
+                        'path'             => '/vmess_h2_tls',
+                        'host'             => [
+                            'cm.bilibili.com',
+                            'data.bilibili.com',
+                            'pcsdata.baidu.com',
+                            'static.awsevents.cn',
+                            'merak.alicdn.com',
+                        ],
+                    ],
+                ]),
+            ],
+            [
+                'name'  => 'vmess',
+                'transport' => 'ws_tls',
+                'status'    => 1,
+                'remark'    => '',
+                'port'      => 12004,
+                'tls'       => 1,
+                'cipher'    => 'auto',
+                'alterId'   => 0,
+                'uuid'      => '931c89af-a362-44c5-80d2-bda173592f68',
+                'password'  => '',
+                'extra'     => json_encode([
+                    'tls'              => true,
+                    'network'          => 'ws',
+                    'skip-cert-verify' => true,
                 ]),
             ],
         ]);
