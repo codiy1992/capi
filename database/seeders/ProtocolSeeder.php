@@ -33,7 +33,7 @@ class ProtocolSeeder extends Seeder
             [
                 'name'  => 'ss',
                 'transport' => 'websocket',
-                'status'    => 0,
+                'status'    => 1,
                 'port'      => 443,
                 'tls'       => 1,
                 'cipher'    => 'chacha20-ietf-poly1305',
@@ -53,7 +53,7 @@ class ProtocolSeeder extends Seeder
             [
                 'name'  => 'ss',
                 'transport' => 'grpc',
-                'status'    => 1,
+                'status'    => 0,
                 'port'      => 443,
                 'tls'       => 1,
                 'cipher'    => 'chacha20-ietf-poly1305',
