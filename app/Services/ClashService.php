@@ -178,7 +178,7 @@ class ClashService
                 $proxy['server'] = str_replace('.0x256.com', '', $proxy['server']);
                 $proxy['server'] = str_replace('.', '', $proxy['server']) . '.0x256.com';
                 $proxy['servername'] = $proxy['server'];
-                if (!empty($proxy['plugin-opts']['host']) {
+                if (!empty($proxy['plugin-opts']['host'])) {
                     $proxy['plugin-opts']['host'] = $proxy['server'];
                 }
                 $result[] = $proxy;
