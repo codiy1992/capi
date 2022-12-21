@@ -73,7 +73,7 @@ class ProtocolSeeder extends Seeder
             // --------------------- Trojan ---------------------
             [
                 'name'  => 'trojan',
-                'transport' => 'tcp',
+                'transport' => 'tcp_tls',
                 'status'    => 1,
                 'port'      => 11001,
                 'tls'       => 1,
@@ -164,7 +164,7 @@ class ProtocolSeeder extends Seeder
             ],
             [
                 'name'  => 'vmess',
-                'transport' => 'tcp',
+                'transport' => 'tcp_tls',
                 'status'    => 1,
                 'port'      => 12001,
                 'tls'       => 1,
