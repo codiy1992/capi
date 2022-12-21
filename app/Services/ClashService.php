@@ -154,6 +154,9 @@ class ClashService
                 $proxy['name'] = sprintf("%s.%s.%s.%s", $server->group, $server->name, $protocol->name, $protocol->transport);
                 $proxy['type'] = $protocol->name;
                 $proxy['server'] = $protocol->tls ? sprintf('%s.0x256.com', $server->ipv4) : $server->ipv4;
+                if (!empty($proxy['plugin']) && $in_array(proxy['plugin'], ['v2ray-plugin'])) {
+                    $proxy['plugin-opts']['host'] = $proxy['server'];
+                }
                 $proxies[] = $proxy;
             }
             $shuffle && shuffle($proxies);
@@ -175,6 +178,9 @@ class ClashService
                 $proxy['server'] = str_replace('.0x256.com', '', $proxy['server']);
                 $proxy['server'] = str_replace('.', '', $proxy['server']) . '.0x256.com';
                 $proxy['servername'] = $proxy['server'];
+                if (!empty($proxy['plugin-opts']['host']) {
+                    $proxy['plugin-opts']['host'] = $proxy['server'];
+                }
                 $result[] = $proxy;
             }
         }
