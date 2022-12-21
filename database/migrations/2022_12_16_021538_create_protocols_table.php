@@ -18,7 +18,6 @@ class CreateProtocolsTable extends Migration
             $table->string('name', 8)->default('')->comment('代理协议');
             $table->string('transport', 32)->default('')->comment('传输流协议');
             $table->tinyInteger('status')->default(0)->comment('状态 0:未启用 1:已启用');
-            $table->string('remark', 255)->default('')->comment('备注信息');
             $table->unsignedInteger('port')->default(0)->comment('端口');
             $table->tinyInteger('tls')->default(0)->comment('TLS 0:否 1:是');
             $table->string('cipher', 32)->default('')->comment('密码学套件');

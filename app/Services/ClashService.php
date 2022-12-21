@@ -170,11 +170,10 @@ class ClashService
             $array = explode('.', $proxy['name']);
             $transport = array_pop($array);
             $protocol = array_pop($array);
-            if ($protocol == 443) {
+            if ($proxy['port'] == 443) {
                 $proxy['name'] = "{$proxy['name']}_cdn";
                 $proxy['server'] = str_replace('.0x256.com', '', $proxy['server']);
                 $proxy['server'] = str_replace('.', '', $proxy['server']) . '.0x256.com';
-                $proxy['port'] = 443;
                 $proxy['servername'] = $proxy['server'];
                 $result[] = $proxy;
             }
