@@ -191,7 +191,7 @@ class ClashService
                 if (!empty($worker['plugin-opts']['host'])) {
                     $worker['plugin-opts']['host'] = $worker['server'];
                 }
-                $result[] = $proxy;
+                $result[] = $worker;
             }
         }
         return $result;
