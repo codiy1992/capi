@@ -174,12 +174,22 @@ class ClashService
             $transport = array_pop($array);
             $protocol = array_pop($array);
             if ($proxy['port'] == 443) {
+                $worker = $proxy;
+                // cdn
                 $proxy['name'] = "{$proxy['name']}_cdn";
                 $proxy['server'] = str_replace('.0x256.com', '', $proxy['server']);
                 $proxy['server'] = str_replace('.', '', $proxy['server']) . '.0x256.com';
                 $proxy['servername'] = $proxy['server'];
                 if (!empty($proxy['plugin-opts']['host'])) {
                     $proxy['plugin-opts']['host'] = $proxy['server'];
+                }
+                $result[] = $proxy;
+                // worker
+                $worker['name'] = "{$worker['name']}_worker";
+                $worker['server'] = "w{$proxy['server']}";
+                $worker['servername'] = $worker['server'];
+                if (!empty($worker['plugin-opts']['host'])) {
+                    $worker['plugin-opts']['host'] = $worker['server'];
                 }
                 $result[] = $proxy;
             }
