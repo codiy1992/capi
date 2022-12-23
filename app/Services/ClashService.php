@@ -183,7 +183,7 @@ class ClashService
                 $proxy['name'] = "{$proxy['name']}_cdn";
                 $proxy['server'] = str_replace('.0x256.com', '', $proxy['server']);
                 $proxy['server'] = str_replace('.', '', $proxy['server']) . '.0x256.com';
-                $protocol == 'vmess' && $proxy['servername'] = $proxy['server'];
+                in_array($protocol, ['trojan', 'vmess']) && $proxy['servername'] = $proxy['server'];
                 if (!empty($proxy['plugin-opts']['host'])) {
                     $proxy['plugin-opts']['host'] = $proxy['server'];
                 }
@@ -198,7 +198,7 @@ class ClashService
                     // worker
                     $worker['name'] = "{$worker['name']}_worker";
                     $worker['server'] = "w{$proxy['server']}";
-                    $protocol == 'vmess' && $worker['servername'] = $worker['server'];
+                    in_array($protocol, ['trojan', 'vmess']) && $worker['servername'] = $worker['server'];
                     if (!empty($worker['plugin-opts']['host'])) {
                         $worker['plugin-opts']['host'] = $worker['server'];
                     }
