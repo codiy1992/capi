@@ -80,4 +80,12 @@ class ClashController extends Controller
         ]);
         return response($service->updateServer($inputs));
     }
+
+    public function updateAnyCastIPV4(Request $request, ClashService $service)
+    {
+        $inputs = $this->validate($request, [
+            'ipv4' => 'required|ipv4',
+        ]);
+        return response($service->updateAnyCastIPV4($ipv4));
+    }
 }
