@@ -86,6 +86,6 @@ class ClashController extends Controller
         $inputs = $this->validate($request, [
             'ipv4' => 'required|ipv4',
         ]);
-        return response($service->updateAnyCastIPV4($ipv4));
+        return response($service->updateAnyCastIPV4($inputs['ipv4']));
     }
 }
