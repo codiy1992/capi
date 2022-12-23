@@ -158,12 +158,9 @@ class ClashService
                 if (!empty($proxy['plugin']) && in_array($proxy['plugin'], ['v2ray-plugin'])) {
                     $proxy['plugin-opts']['host'] = $proxy['server'];
                 }
-                if (!empty($proxy['ws-opts'])) {
-                    $proxy['ws-opts']['headers']['host'] = $proxy['server'];
-                }
-                if ($protocol->name == 'trojan') {
-                    $proxy['sni'] = $proxy['server'];
-                }
+                !empty($proxy['ws-opts']) && $proxy['ws-opts']['headers']['host'] = $proxy['server'];
+                $protocol->name == 'trojan' && $proxy['sni'] = $proxy['server'];
+                $protocol->name == 'vmess' && $proxy['servername'] = $proxy['server'];
                 $proxies[] = $proxy;
             }
             $shuffle && shuffle($proxies);
@@ -186,34 +183,27 @@ class ClashService
                 $proxy['name'] = "{$proxy['name']}_cdn";
                 $proxy['server'] = str_replace('.0x256.com', '', $proxy['server']);
                 $proxy['server'] = str_replace('.', '', $proxy['server']) . '.0x256.com';
-                in_array($protocol, ['trojan', 'vmess']) && $proxy['servername'] = $proxy['server'];
-                if (!empty($proxy['plugin-opts']['host'])) {
-                    $proxy['plugin-opts']['host'] = $proxy['server'];
-                }
-                if (!empty($proxy['ws-opts'])) {
-                    $proxy['ws-opts']['headers']['host'] = $proxy['server'];
-                }
-                if (!empty($proxy['sni'])) {
-                    $proxy['sni'] = $proxy['server'];
-                }
+
+                !empty($proxy['plugin-opts']['host']) && $proxy['plugin-opts']['host'] = $proxy['server'];
+                !empty($proxy['ws-opts']) && $proxy['ws-opts']['headers']['host'] = $proxy['server'];
+                !empty($proxy['sni']) && $proxy['sni'] = $proxy['server'];
+                !empty($proxy['servername']) && $proxy['servername'] = $proxy['server'];
                 if (!empty($config->extra['anycast'])) {
                     $proxy['server'] = Cache::get('cloudflare:anycast:ipv4', $proxy['server']);
                 }
+
                 $result[] = $proxy;
                 if (!empty($config->extra['worker'])) {
                     // worker
                     $worker['name'] = "{$worker['name']}_worker";
-                    $worker['server'] = "w{$proxy['server']}";
-                    in_array($protocol, ['trojan', 'vmess']) && $worker['servername'] = $worker['server'];
-                    if (!empty($worker['plugin-opts']['host'])) {
-                        $worker['plugin-opts']['host'] = $worker['server'];
-                    }
-                    if (!empty($worker['ws-opts'])) {
-                        $worker['ws-opts']['headers']['host'] = $worker['server'];
-                    }
-                    if (!empty($worker['sni'])) {
-                        $worker['sni'] = $worker['server'];
-                    }
+                    $worker['server'] = str_replace('.0x256.com', '', $worker['server']);
+                    $worker['server'] = str_replace('.', '', $worker['server']) . '.0x256.com';
+                    $worker['server'] = "w{$worker['server']}";
+
+                    !empty($worker['plugin-opts']['host']) && $worker['plugin-opts']['host'] = $worker['server'];
+                    !empty($worker['ws-opts']) && $worker['ws-opts']['headers']['host'] = $worker['server'];
+                    !empty($worker['sni']) && $worker['sni'] = $worker['server'];
+                    !empty($worker['servername']) && $worker['servername'] = $worker['server'];
                     if (!empty($config->extra['anycast'])) {
                         $worker['server'] = Cache::get('cloudflare:anycast:ipv4', $worker['server']);
                     }
