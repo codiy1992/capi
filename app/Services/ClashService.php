@@ -161,8 +161,8 @@ class ClashService
                 if (!empty($proxy['ws-opts'])) {
                     $proxy['ws-opts']['headers']['host'] = $proxy['server'];
                 }
-                if (!empty($proxy['grpc-opts'])) {
-                    $proxy['grpc-opts']['headers']['host'] = $proxy['server'];
+                if ($protocol->name == 'trojan') {
+                    $proxy['sni'] = $proxy['server'];
                 }
                 $proxies[] = $proxy;
             }
@@ -193,8 +193,8 @@ class ClashService
                 if (!empty($proxy['ws-opts'])) {
                     $proxy['ws-opts']['headers']['host'] = $proxy['server'];
                 }
-                if (!empty($proxy['grpc-opts'])) {
-                    $proxy['grpc-opts']['headers']['host'] = $proxy['server'];
+                if (!empty($proxy['sni'])) {
+                    $proxy['sni'] = $proxy['server'];
                 }
                 if (!empty($config->extra['anycast'])) {
                     $proxy['server'] = Cache::get('cloudflare:anycast:ipv4', $proxy['server']);
@@ -208,11 +208,11 @@ class ClashService
                     if (!empty($worker['plugin-opts']['host'])) {
                         $worker['plugin-opts']['host'] = $worker['server'];
                     }
-                    if (!empty($proxy['ws-opts'])) {
+                    if (!empty($worker['ws-opts'])) {
                         $worker['ws-opts']['headers']['host'] = $worker['server'];
                     }
-                    if (!empty($proxy['grpc-opts'])) {
-                        $worker['grpc-opts']['headers']['host'] = $worker['server'];
+                    if (!empty($worker['sni'])) {
+                        $worker['sni'] = $worker['server'];
                     }
                     if (!empty($config->extra['anycast'])) {
                         $worker['server'] = Cache::get('cloudflare:anycast:ipv4', $worker['server']);
