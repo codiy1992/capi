@@ -7,6 +7,7 @@ use App\Models\Server;
 use App\Models\Config;
 use App\Facades\VariedProxy;
 use Symfony\Component\Yaml\Yaml;
+use Illuminate\Support\Facades\Cache;
 
 class ClashService
 {
@@ -157,6 +158,9 @@ class ClashService
                 if (!empty($proxy['plugin']) && in_array($proxy['plugin'], ['v2ray-plugin'])) {
                     $proxy['plugin-opts']['host'] = $proxy['server'];
                 }
+                if (!empty($proxy['ws-opts'])) {
+                    $proxy['ws-opts']['headers']['host'] = $proxy['server'];
+                }
                 $proxies[] = $proxy;
             }
             $shuffle && shuffle($proxies);
@@ -179,19 +183,33 @@ class ClashService
                 $proxy['name'] = "{$proxy['name']}_cdn";
                 $proxy['server'] = str_replace('.0x256.com', '', $proxy['server']);
                 $proxy['server'] = str_replace('.', '', $proxy['server']) . '.0x256.com';
-                $proxy['servername'] = $proxy['server'];
+                $protocol == 'vmess' && $proxy['servername'] = $proxy['server'];
                 if (!empty($proxy['plugin-opts']['host'])) {
                     $proxy['plugin-opts']['host'] = $proxy['server'];
                 }
-                $result[] = $proxy;
-                // worker
-                $worker['name'] = "{$worker['name']}_worker";
-                $worker['server'] = "w{$proxy['server']}";
-                $worker['servername'] = $worker['server'];
-                if (!empty($worker['plugin-opts']['host'])) {
-                    $worker['plugin-opts']['host'] = $worker['server'];
+                if (!empty($proxy['ws-opts'])) {
+                    $proxy['ws-opts']['headers']['host'] = $proxy['server'];
                 }
-                $result[] = $worker;
+                if (!empty($config->extra['anycast'])) {
+                    $proxy['server'] = Cache::get('cloudflare:anycast:ipv4', $proxy['server']);
+                }
+                $result[] = $proxy;
+                if (!empty($config->extra['worker'])) {
+                    // worker
+                    $worker['name'] = "{$worker['name']}_worker";
+                    $worker['server'] = "w{$proxy['server']}";
+                    $protocol == 'vmess' && $worker['servername'] = $worker['server'];
+                    if (!empty($worker['plugin-opts']['host'])) {
+                        $worker['plugin-opts']['host'] = $worker['server'];
+                    }
+                    if (!empty($proxy['ws-opts'])) {
+                        $worker['ws-opts']['headers']['host'] = $worker['server'];
+                    }
+                    if (!empty($config->extra['anycast'])) {
+                        $worker['server'] = Cache::get('cloudflare:anycast:ipv4', $worker['server']);
+                    }
+                    $result[] = $worker;
+                }
             }
         }
         return $result;
@@ -205,5 +223,14 @@ class ClashService
             return $server;
         }
         return [];
+    }
+
+    public function updateAnyCastIPV4(string $ipv4)
+    {
+        $key = 'cloudflare:anycast:ipv4';
+        if (Cache::get($key) != $ipv4) {
+            Cache::put($key, $ipv4, 86400);
+        }
+        return $ipv4;
     }
 }
