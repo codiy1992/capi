@@ -21,13 +21,20 @@ class ClashService
         // Options
         $dns_enable = request()->input('dns', $config->dns);
         $dns_enable = (strtolower($dns_enable) == 'false' || empty($dns_enable)) ? false : true;
-        $group_names = request()->input('groups', $config->groups);
-        $group_names = explode(',', $group_names);
-        array_walk($group_names, function(&$value) { $value = trim(strtolower($value)); });
+        $groups = request()->input('groups', $config->groups);
+        $groups = explode(',', $groups);
+        array_walk($groups, function(&$value) { $value = trim(strtoupper($value)); });
+        $online_groups = array_unique(Server::whereIn('group', $groups)->pluck('group')->toArray());
+        $groups = array_intersect($groups, $online_groups);
+        $valid_groups = explode(',', $config->groups);
+        array_walk($valid_groups, function(&$value) { $value = trim(strtoupper($value)); });
+        $groups = array_intersect($groups, $valid_groups);
+
         $interval = (int)request()->input('interval', $config->interval);
         $single = (int)request()->input('single', $config->single);
 
-        $proxy_groups_and_providers = $this->genProxyGroupsAndProviders($name, $group_names, $interval, $single);
+        $providers = $this->proxyProviders($config, $groups, $interval, $single);
+        $groups = $this->proxyGroups($config, $groups);
 
         // Load Yaml Files
         $config = Yaml::parseFile(resource_path('clash/config.yaml'));
@@ -35,18 +42,53 @@ class ClashService
         $rules = Yaml::parseFile(resource_path('clash/rules.yaml'));
         $dns['dns']['enable'] = (bool) $dns_enable;
         return Yaml::dump(array_merge(
-            $config, $dns, $proxy_groups_and_providers, $rules
+            $config, $dns, $providers, $groups, $rules
         ), 2, 2);
     }
 
-    public function genProxyGroupsAndProviders(
-        string $config_name,
-        array $group_names,
-        $interval = 3600,
-        $single = 0
-    )
+    /**
+     *
+     */
+    public function proxyProviders(Config $config, array $groups, $interval = 3600, $single = 0)
     {
-        $proxy_providers = [];
+        $providers = [];
+        $server_host = request()->getSchemeAndHttpHost();
+        foreach($groups as $group) {
+            $group = strtolower($group);
+            $providers["provier_{$group}"] = [
+                'url'      => sprintf(
+                        "{$server_host}/proxies/%s?groups=%s&single=%s",
+                        $config->name, $group, $single
+                    ),
+                'path'     => "./providers/{$group}.yaml",
+                'interval' => $interval,
+                'type'     => 'http',
+                'health-check' => [
+                    'url'      => 'http://www.gstatic.com/generate_204',
+                    'enable'   => true,
+                    'interval' => 600
+                ],
+            ];
+        }
+        $providers['provider_all'] = [
+            'url' => sprintf(
+                    "{$server_host}/proxies/%s?groups=%s&single=%s",
+                    $config->name, implode(',', $groups), $single
+            ),
+            'interval' => $interval,
+            'path'     => './providers/all.yaml',
+            'type'     => 'http',
+            'health-check' => [
+                'url'      => 'http://www.gstatic.com/generate_204',
+                'enable'   => true,
+                'interval' => 600
+            ],
+        ];
+        return ['proxy-providers' => $providers];
+    }
+
+    public function proxyGroups(Config $config, array $groups)
+    {
         $proxy_groups = [];
         $server_host = request()->getSchemeAndHttpHost();
 
@@ -63,11 +105,8 @@ class ClashService
             'interval' => 300,
             'proxies'  => [],
         ];
-        $valid_groups = array_unique(Server::whereIn('group', $group_names)->pluck('group')->toArray());
-        array_walk($valid_groups, function(&$value) { $value = trim(strtolower($value)); });
-        foreach($group_names as $name) {
-            if (!in_array($name, $valid_groups)) {continue;}
-            $provider_name = sprintf("provier_%s", $name);
+
+        foreach($groups as $name) {
             $auto_name = sprintf("auto-%s", strtoupper($name));
             $group_auto = [
                 'name' => $auto_name,
@@ -75,20 +114,6 @@ class ClashService
                 'use' => [$provider_name],
                 'url'      => 'http://www.gstatic.com/generate_204',
                 'interval' => 300,
-            ];
-            $providers[$provider_name] = [
-                'url'      => sprintf(
-                        "{$server_host}/proxies/%s?groups=%s&single=%s",
-                        $config_name, $name, $single
-                    ),
-                'path'     => "./providers/{$name}.yaml",
-                'interval' => $interval,
-                'type'     => 'http',
-                'health-check' => [
-                    'url'      => 'http://www.gstatic.com/generate_204',
-                    'enable'   => true,
-                    'interval' => 600
-                ],
             ];
             $group_select['proxies'][] = $auto_name;
             $group_fallback['proxies'][] = $auto_name;
@@ -98,29 +123,11 @@ class ClashService
         array_unshift($proxy_groups, $group_fallback);
         array_unshift($proxy_groups, $group_select);
 
-        $providers['provider_all'] = [
-            'url' => sprintf(
-                    "{$server_host}/proxies/%s?groups=%s&single=%s",
-                    $config_name, implode(',', $group_names), $single
-            ),
-            'interval' => $interval,
-            'path'     => './providers/all.yaml',
-            'type'     => 'http',
-            'health-check' => [
-                'url'      => 'http://www.gstatic.com/generate_204',
-                'enable'   => true,
-                'interval' => 600
-            ],
-        ];
-
-        return [
-            'proxy-providers' => $providers,
-            'proxy-groups' => $proxy_groups,
-        ];
+        return [ 'proxy-groups' => $proxy_groups];
     }
 
     /**
-     *
+     * 代理节点
      */
     public function proxies(string $config_name, string $group_names = '', bool $single = false)
     {
@@ -164,6 +171,9 @@ class ClashService
         return Yaml::dump(['proxies' => $this->cdnWrap($proxies, $config),]);
     }
 
+    /**
+     * 套CDN
+     */
     public function cdnWrap($proxies, Config $config)
     {
         $result = [];
