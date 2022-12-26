@@ -33,7 +33,6 @@ class ClashService
         $groups = array_intersect($groups, $online_groups);
         empty($groups) && $groups = array_intersect($valid_groups, $online_groups);
 
-
         $interval = (int)request()->input('interval', $config->interval);
         $single = (int)request()->input('single', $config->single);
 
