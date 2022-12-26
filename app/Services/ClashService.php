@@ -21,14 +21,18 @@ class ClashService
         // Options
         $dns_enable = request()->input('dns', $config->dns);
         $dns_enable = (strtolower($dns_enable) == 'false' || empty($dns_enable)) ? false : true;
+
+        // Groups
         $groups = request()->input('groups', $config->groups);
         $groups = explode(',', $groups);
-        array_walk($groups, function(&$value) { $value = trim(strtoupper($value)); });
-        $online_groups = array_unique(Server::whereIn('group', $groups)->pluck('group')->toArray());
-        $groups = array_intersect($groups, $online_groups);
         $valid_groups = explode(',', $config->groups);
         array_walk($valid_groups, function(&$value) { $value = trim(strtoupper($value)); });
+        array_walk($groups, function(&$value) { $value = trim(strtoupper($value)); });
         $groups = array_intersect($groups, $valid_groups);
+        $online_groups = array_unique(Server::whereIn('group', $groups)->pluck('group')->toArray());
+        $groups = array_intersect($groups, $online_groups);
+        empty($groups) && $groups = array_intersect($valid_groups, $online_groups);
+
 
         $interval = (int)request()->input('interval', $config->interval);
         $single = (int)request()->input('single', $config->single);
