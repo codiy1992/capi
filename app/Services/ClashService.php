@@ -55,7 +55,7 @@ class ClashService
         $server_host = request()->getSchemeAndHttpHost();
         foreach($groups as $group) {
             $group = strtolower($group);
-            $providers["provier_{$group}"] = [
+            $providers["provider_{$group}"] = [
                 'url'      => sprintf(
                         "{$server_host}/proxies/%s?groups=%s&single=%s",
                         $config->name, $group, $single
