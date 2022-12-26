@@ -108,10 +108,11 @@ class ClashService
 
         foreach($groups as $name) {
             $auto_name = sprintf("auto-%s", strtoupper($name));
+            $name = strtolower($name);
             $group_auto = [
                 'name' => $auto_name,
                 'type' => 'url-test',
-                'use' => [$provider_name],
+                'use' => ["provider_{$name}"],
                 'url'      => 'http://www.gstatic.com/generate_204',
                 'interval' => 300,
             ];
