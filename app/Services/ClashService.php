@@ -179,61 +179,60 @@ class ClashService
     {
         $result = [];
         foreach ($proxies as $proxy) {
+            if ($proxy['port'] != 443) { continue; }
             $result[] = $proxy;
             $array = explode('.', $proxy['name']);
             $transport = array_pop($array);
             $protocol = array_pop($array);
-            if ($proxy['port'] == 443) {
-                // cloudfront
-                if (in_array($transport, ['websocket'])) {
-                    $cloudfront = $proxy;
-                    $cloudfront['name'] = "{$cloudfront['name']}_cloudfront";
-                    $cloudfront['server'] = str_replace('.0x256.com', '', $cloudfront['server']);
-                    $cloudfront['server'] = str_replace('.', '', $cloudfront['server']) . '.0x256.com';
-                    $cloudfront['server'] = "cft{$cloudfront['server']}";
+            // cloudfront
+            if (in_array($transport, ['websocket'])) {
+                $cloudfront = $proxy;
+                $cloudfront['name'] = "{$cloudfront['name']}_cloudfront";
+                $cloudfront['server'] = str_replace('.0x256.com', '', $cloudfront['server']);
+                $cloudfront['server'] = str_replace('.', '', $cloudfront['server']) . '.0x256.com';
+                $cloudfront['server'] = "cft{$cloudfront['server']}";
 
-                    !empty($cloudfront['plugin-opts']['host']) && $cloudfront['plugin-opts']['host'] = $cloudfront['server'];
-                    !empty($cloudfront['ws-opts']) && $cloudfront['ws-opts']['headers']['host'] = $cloudfront['server'];
-                    !empty($cloudfront['sni']) && $cloudfront['sni'] = $cloudfront['server'];
-                    !empty($cloudfront['servername']) && $cloudfront['servername'] = $cloudfront['server'];
-                    if (!empty($config->extra['anycast'])) {
-                        $cloudfront['server'] = Cache::get('cloudfront:anycast:ipv4', $cloudfront['server']);
-                    }
-                    $result[] = $cloudfront;
-                }
-                // cloudflare
-                $cloudflare = $proxy;
-                $cloudflare['name'] = "{$cloudflare['name']}_cloudflare";
-                $cloudflare['server'] = str_replace('.0x256.com', '', $cloudflare['server']);
-                $cloudflare['server'] = str_replace('.', '', $cloudflare['server']) . '.0x256.com';
-
-                !empty($cloudflare['plugin-opts']['host']) && $cloudflare['plugin-opts']['host'] = $cloudflare['server'];
-                !empty($cloudflare['ws-opts']) && $cloudflare['ws-opts']['headers']['host'] = $cloudflare['server'];
-                !empty($cloudflare['sni']) && $cloudflare['sni'] = $cloudflare['server'];
-                !empty($cloudflare['servername']) && $cloudflare['servername'] = $cloudflare['server'];
+                !empty($cloudfront['plugin-opts']['host']) && $cloudfront['plugin-opts']['host'] = $cloudfront['server'];
+                !empty($cloudfront['ws-opts']) && $cloudfront['ws-opts']['headers']['host'] = $cloudfront['server'];
+                !empty($cloudfront['sni']) && $cloudfront['sni'] = $cloudfront['server'];
+                !empty($cloudfront['servername']) && $cloudfront['servername'] = $cloudfront['server'];
                 if (!empty($config->extra['anycast'])) {
-                    $cloudflare['server'] = Cache::get('cloudflare:anycast:ipv4', $cloudflare['server']);
+                    $cloudfront['server'] = Cache::get('cloudfront:anycast:ipv4', $cloudfront['server']);
                 }
-                $result[] = $cloudflare;
+                $result[] = $cloudfront;
+            }
+            // cloudflare
+            $cloudflare = $proxy;
+            $cloudflare['name'] = "{$cloudflare['name']}_cloudflare";
+            $cloudflare['server'] = str_replace('.0x256.com', '', $cloudflare['server']);
+            $cloudflare['server'] = str_replace('.', '', $cloudflare['server']) . '.0x256.com';
 
-                // cloudflare worker
-                $worker = $proxy;
-                if (!empty($config->extra['worker'])) {
-                    // worker
-                    $worker['name'] = "{$worker['name']}_worker";
-                    $worker['server'] = str_replace('.0x256.com', '', $worker['server']);
-                    $worker['server'] = str_replace('.', '', $worker['server']) . '.0x256.com';
-                    $worker['server'] = "w{$worker['server']}";
+            !empty($cloudflare['plugin-opts']['host']) && $cloudflare['plugin-opts']['host'] = $cloudflare['server'];
+            !empty($cloudflare['ws-opts']) && $cloudflare['ws-opts']['headers']['host'] = $cloudflare['server'];
+            !empty($cloudflare['sni']) && $cloudflare['sni'] = $cloudflare['server'];
+            !empty($cloudflare['servername']) && $cloudflare['servername'] = $cloudflare['server'];
+            if (!empty($config->extra['anycast'])) {
+                $cloudflare['server'] = Cache::get('cloudflare:anycast:ipv4', $cloudflare['server']);
+            }
+            $result[] = $cloudflare;
 
-                    !empty($worker['plugin-opts']['host']) && $worker['plugin-opts']['host'] = $worker['server'];
-                    !empty($worker['ws-opts']) && $worker['ws-opts']['headers']['host'] = $worker['server'];
-                    !empty($worker['sni']) && $worker['sni'] = $worker['server'];
-                    !empty($worker['servername']) && $worker['servername'] = $worker['server'];
-                    if (!empty($config->extra['anycast'])) {
-                        $worker['server'] = Cache::get('cloudflare:anycast:ipv4', $worker['server']);
-                    }
-                    $result[] = $worker;
+            // cloudflare worker
+            $worker = $proxy;
+            if (!empty($config->extra['worker'])) {
+                // worker
+                $worker['name'] = "{$worker['name']}_worker";
+                $worker['server'] = str_replace('.0x256.com', '', $worker['server']);
+                $worker['server'] = str_replace('.', '', $worker['server']) . '.0x256.com';
+                $worker['server'] = "w{$worker['server']}";
+
+                !empty($worker['plugin-opts']['host']) && $worker['plugin-opts']['host'] = $worker['server'];
+                !empty($worker['ws-opts']) && $worker['ws-opts']['headers']['host'] = $worker['server'];
+                !empty($worker['sni']) && $worker['sni'] = $worker['server'];
+                !empty($worker['servername']) && $worker['servername'] = $worker['server'];
+                if (!empty($config->extra['anycast'])) {
+                    $worker['server'] = Cache::get('cloudflare:anycast:ipv4', $worker['server']);
                 }
+                $result[] = $worker;
             }
         }
         return $result;
