@@ -25,10 +25,9 @@ class ClashService
         $group_names = explode(',', $group_names);
         array_walk($group_names, function(&$value) { $value = trim(strtolower($value)); });
         $interval = (int)request()->input('interval', $config->interval);
-        $shuffle = (int)request()->input('shuffle', $config->shuffle);
         $single = (int)request()->input('single', $config->single);
 
-        $proxy_groups_and_providers = $this->genProxyGroupsAndProviders($name, $group_names, $interval, $shuffle, $single);
+        $proxy_groups_and_providers = $this->genProxyGroupsAndProviders($name, $group_names, $interval, $single);
 
         // Load Yaml Files
         $config = Yaml::parseFile(resource_path('clash/config.yaml'));
@@ -44,7 +43,6 @@ class ClashService
         string $config_name,
         array $group_names,
         $interval = 3600,
-        $shuffle = 0,
         $single = 0
     )
     {
@@ -80,8 +78,8 @@ class ClashService
             ];
             $providers[$provider_name] = [
                 'url'      => sprintf(
-                        "{$server_host}/proxies/%s?groups=%s&shuffle=%s&single=%s",
-                        $config_name, $name, $shuffle, $single
+                        "{$server_host}/proxies/%s?groups=%s&single=%s",
+                        $config_name, $name, $single
                     ),
                 'path'     => "./providers/{$name}.yaml",
                 'interval' => $interval,
@@ -102,8 +100,8 @@ class ClashService
 
         $providers['provider_all'] = [
             'url' => sprintf(
-                    "{$server_host}/proxies/%s?groups=%s&shuffle=%s&single=%s",
-                    $config_name, implode(',', $group_names), $shuffle, $single
+                    "{$server_host}/proxies/%s?groups=%s&single=%s",
+                    $config_name, implode(',', $group_names), $single
             ),
             'interval' => $interval,
             'path'     => './providers/all.yaml',
@@ -124,7 +122,7 @@ class ClashService
     /**
      *
      */
-    public function proxies(string $config_name, string $group_names = '', bool $shuffle = false, bool $single = false)
+    public function proxies(string $config_name, string $group_names = '', bool $single = false)
     {
         if (!$config = Config::where(['name' => $config_name])->first()) {
             return ;
@@ -161,7 +159,6 @@ class ClashService
                 $protocol->name == 'vmess' && $proxy['servername'] = $proxy['server'];
                 $proxies[] = $proxy;
             }
-            $shuffle && shuffle($proxies);
             $single && $proxies = [array_shift($proxies)];
         }
         return Yaml::dump(['proxies' => $this->cdnWrap($proxies, $config),]);

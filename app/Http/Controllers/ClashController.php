@@ -60,7 +60,6 @@ class ClashController extends Controller
                 $service->proxies(
                     $config_name,
                     $request->input('groups', ''),
-                    (bool) $request->input('shuffle', 0),
                     (bool) $request->input('single', 0)
                 ),
                 200,
