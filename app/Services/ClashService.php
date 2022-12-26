@@ -29,9 +29,9 @@ class ClashService
         array_walk($valid_groups, function(&$value) { $value = trim(strtoupper($value)); });
         array_walk($groups, function(&$value) { $value = trim(strtoupper($value)); });
         $groups = array_intersect($groups, $valid_groups);
+        empty($groups) && $groups = $valid_groups;
         $online_groups = array_unique(Server::whereIn('group', $groups)->pluck('group')->toArray());
         $groups = array_intersect($groups, $online_groups);
-        empty($groups) && $groups = array_intersect($valid_groups, $online_groups);
 
         $interval = (int)request()->input('interval', $config->interval);
         $single = (int)request()->input('single', $config->single);
