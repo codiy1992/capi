@@ -84,7 +84,8 @@ class ClashController extends Controller
     public function updateAnyCastIPV4(Request $request, ClashService $service)
     {
         $inputs = $this->validate($request, [
-            'ipv4' => 'required|ipv4',
+            'provider' => 'required|in:cloudfront,cloudflare',
+            'ipv4'     => 'required|ipv4',
         ]);
         return response($service->updateAnyCastIPV4($inputs['ipv4']));
     }
