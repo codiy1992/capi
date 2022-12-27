@@ -97,7 +97,7 @@ class ClashService
         $group_select = [
             'name'    => 'Proxy',
             'type'    => 'select',
-            'use'     => [],
+            'use'     => ['provider_all'],
             'proxies' => ['fallback-auto', 'DIRECT'],
         ];
         $group_fallback = [
@@ -118,7 +118,6 @@ class ClashService
                 'url'      => 'http://www.gstatic.com/generate_204',
                 'interval' => 300,
             ];
-            $group_select['use'][] = "provider_{$name}";
             $group_select['proxies'][] = $auto_name;
             $group_fallback['proxies'][] = $auto_name;
             $proxy_groups[] = $group_auto;
