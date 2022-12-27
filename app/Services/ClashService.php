@@ -92,6 +92,7 @@ class ClashService
             'use' => [],
             'url'      => 'http://www.gstatic.com/generate_204',
             'interval' => 300,
+            'strategy' => 'consistent-hashing',
         ];
         $group_lb_round_robin= [
             'name' => 'load-balance(round-robin)',
@@ -99,6 +100,7 @@ class ClashService
             'use' => [],
             'url'      => 'http://www.gstatic.com/generate_204',
             'interval' => 300,
+            'strategy' => 'round-robin',
         ];
         $group_fallback = [
             'name'     => 'fallback-auto',
