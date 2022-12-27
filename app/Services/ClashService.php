@@ -83,7 +83,22 @@ class ClashService
             'name'    => 'Proxy',
             'type'    => 'select',
             'use'     => [],
-            'proxies' => ['fallback-auto', 'DIRECT'],
+            'proxies' => ['load-balance(hashing)', 'load-balance(round-robin)', 'fallback-auto', 'DIRECT'],
+        ];
+
+        $group_lb_hashing = [
+            'name' => 'load-balance(hashing)',
+            'type' => 'load-balance',
+            'use' => [],
+            'url'      => 'http://www.gstatic.com/generate_204',
+            'interval' => 300,
+        ];
+        $group_lb_round_robin= [
+            'name' => 'load-balance(round-robin)',
+            'type' => 'load-balance',
+            'use' => [],
+            'url'      => 'http://www.gstatic.com/generate_204',
+            'interval' => 300,
         ];
         $group_fallback = [
             'name'     => 'fallback-auto',
@@ -92,7 +107,6 @@ class ClashService
             'interval' => 300,
             'proxies'  => [],
         ];
-
 
         foreach($groups as $name) {
             $auto_name = sprintf("auto-%s", strtoupper($name));
@@ -104,13 +118,17 @@ class ClashService
                 'url'      => 'http://www.gstatic.com/generate_204',
                 'interval' => 300,
             ];
-            $group_select['use'][] = "provider_{$name}";
-            $group_select['proxies'][] = $auto_name;
-            $group_fallback['proxies'][] = $auto_name;
-            $proxy_groups[] = $group_auto;
+            $group_lb_hashing['use'][]     = "provider_{$name}";
+            $group_lb_round_robin['use'][] = "provider_{$name}";
+            $group_select['use'][]         = "provider_{$name}";
+            $group_select['proxies'][]     = $auto_name;
+            $group_fallback['proxies'][]   = $auto_name;
+            $proxy_groups[]                = $group_auto;
         }
 
         array_unshift($proxy_groups, $group_fallback);
+        array_unshift($proxy_groups, $group_lb_round_robin);
+        array_unshift($proxy_groups, $group_lb_hashing);
         array_unshift($proxy_groups, $group_select);
 
         return [ 'proxy-groups' => $proxy_groups];
