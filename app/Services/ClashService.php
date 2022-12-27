@@ -33,9 +33,8 @@ class ClashService
         $dns_enable = request()->input('dns', $config->dns);
         $dns_enable = (strtolower($dns_enable) == 'false' || empty($dns_enable)) ? false : true;
         $interval = (int)request()->input('interval', $config->interval);
-        $single = (int)request()->input('single', $config->single);
 
-        $providers = $this->proxyProviders($config, $groups, $interval, $single);
+        $providers = $this->proxyProviders($config, $groups, $interval);
         $groups = $this->proxyGroups($config, $groups);
 
         // Load Yaml Files
@@ -51,17 +50,14 @@ class ClashService
     /**
      *
      */
-    public function proxyProviders(Config $config, array $groups, $interval = 3600, $single = 0)
+    public function proxyProviders(Config $config, array $groups, $interval = 3600)
     {
         $providers = [];
         $server_host = request()->getSchemeAndHttpHost();
         foreach($groups as $group) {
             $group = strtolower($group);
             $providers["provider_{$group}"] = [
-                'url'      => sprintf(
-                        "{$server_host}/proxies/%s?groups=%s&single=%s",
-                        $config->name, $group, $single
-                    ),
+                'url'      => sprintf("{$server_host}/proxies/%s?groups=%s", $config->name, $group),
                 'path'     => "./providers/{$group}.yaml",
                 'interval' => $interval,
                 'type'     => 'http',
@@ -97,6 +93,7 @@ class ClashService
             'proxies'  => [],
         ];
 
+
         foreach($groups as $name) {
             $auto_name = sprintf("auto-%s", strtoupper($name));
             $name = strtolower($name);
@@ -122,7 +119,7 @@ class ClashService
     /**
      * 代理节点
      */
-    public function proxies(string $config_name, string $group_names = '', bool $single = false)
+    public function proxies(string $config_name, string $group_names = '')
     {
         if (!$config = Config::where(['name' => $config_name])->first()) {
             return ;
@@ -159,7 +156,6 @@ class ClashService
                 $protocol->name == 'vmess' && $proxy['servername'] = $proxy['server'];
                 $proxies[] = $proxy;
             }
-            $single && $proxies = [array_shift($proxies)];
         }
         return Yaml::dump(['proxies' => $this->cdnWrap($proxies, $config),]);
     }
