@@ -75,7 +75,7 @@ class ClashService
         $providers['provider_all'] = [
             'url' => sprintf(
                     "{$server_host}/proxies/%s?groups=%s&single=%s",
-                    $config->name, implode(',', $groups), $single
+                    $config->name, strtolower(implode(',', $groups)), $single
             ),
             'interval' => $interval,
             'path'     => './providers/all.yaml',
@@ -89,6 +89,9 @@ class ClashService
         return ['proxy-providers' => $providers];
     }
 
+    /**
+     *
+     */
     public function proxyGroups(Config $config, array $groups)
     {
         $proxy_groups = [];
@@ -97,7 +100,7 @@ class ClashService
         $group_select = [
             'name'    => 'Proxy',
             'type'    => 'select',
-            'use'     => ['provider_all'],
+            'use'     => [],
             'proxies' => ['fallback-auto', 'DIRECT'],
         ];
         $group_fallback = [
@@ -118,6 +121,7 @@ class ClashService
                 'url'      => 'http://www.gstatic.com/generate_204',
                 'interval' => 300,
             ];
+            $group_select['use'][] = "provider_{$name}";
             $group_select['proxies'][] = $auto_name;
             $group_fallback['proxies'][] = $auto_name;
             $proxy_groups[] = $group_auto;
