@@ -18,10 +18,6 @@ class ClashService
             return ;
         }
 
-        // Options
-        $dns_enable = request()->input('dns', $config->dns);
-        $dns_enable = (strtolower($dns_enable) == 'false' || empty($dns_enable)) ? false : true;
-
         // Groups
         $groups = request()->input('groups', $config->groups);
         $groups = explode(',', $groups);
@@ -33,6 +29,9 @@ class ClashService
         $online_groups = array_unique(Server::whereIn('group', $groups)->pluck('group')->toArray());
         $groups = array_intersect($groups, $online_groups);
 
+        // Options
+        $dns_enable = request()->input('dns', $config->dns);
+        $dns_enable = (strtolower($dns_enable) == 'false' || empty($dns_enable)) ? false : true;
         $interval = (int)request()->input('interval', $config->interval);
         $single = (int)request()->input('single', $config->single);
 
@@ -98,7 +97,7 @@ class ClashService
         $group_select = [
             'name'    => 'Proxy',
             'type'    => 'select',
-            'use'     => ['provider_all'],
+            'use'     => [],
             'proxies' => ['fallback-auto', 'DIRECT'],
         ];
         $group_fallback = [
@@ -119,6 +118,7 @@ class ClashService
                 'url'      => 'http://www.gstatic.com/generate_204',
                 'interval' => 300,
             ];
+            $group_select['use'][] = "provider_{$name}";
             $group_select['proxies'][] = $auto_name;
             $group_fallback['proxies'][] = $auto_name;
             $proxy_groups[] = $group_auto;
