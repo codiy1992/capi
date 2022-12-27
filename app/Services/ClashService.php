@@ -72,20 +72,6 @@ class ClashService
                 ],
             ];
         }
-        $providers['provider_all'] = [
-            'url' => sprintf(
-                    "{$server_host}/proxies/%s?groups=%s&single=%s",
-                    $config->name, strtolower(implode(',', $groups)), $single
-            ),
-            'interval' => $interval,
-            'path'     => './providers/all.yaml',
-            'type'     => 'http',
-            'health-check' => [
-                'url'      => 'http://www.gstatic.com/generate_204',
-                'enable'   => true,
-                'interval' => 600
-            ],
-        ];
         return ['proxy-providers' => $providers];
     }
 
