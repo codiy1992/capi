@@ -86,6 +86,6 @@ class ClashController extends Controller
             'provider' => 'required|in:cloudfront,cloudflare',
             'ipv4'     => 'required|ipv4',
         ]);
-        return response($service->updateAnyCastIPV4($inputs['ipv4']));
+        return response($service->updateAnyCastIPV4($inputs['provider'], $inputs['ipv4']));
     }
 }
