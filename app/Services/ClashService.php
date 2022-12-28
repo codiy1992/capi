@@ -187,11 +187,12 @@ class ClashService
     {
         $result = [];
         foreach ($proxies as $proxy) {
-            if ($proxy['port'] != 443) { continue; }
             $result[] = $proxy;
             $array = explode('.', $proxy['name']);
             $transport = array_pop($array);
             $protocol = array_pop($array);
+
+            if ($proxy['port'] != 443) { continue; }
             // cloudfront
             if (in_array($transport, ['websocket'])) {
                 $cloudfront = $proxy;
