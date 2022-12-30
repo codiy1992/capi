@@ -85,6 +85,8 @@ class ClashController extends Controller
         $inputs = $this->validate($request, [
             'provider' => 'required|in:cloudfront,cloudflare',
             'ipv4'     => 'required|ipv4',
+            'icmp'     => 'nullable|string',
+            'down'     => 'nullable|string',
         ]);
         return response($service->updateAnyCastIPV4($inputs['provider'], $inputs['ipv4']));
     }

@@ -5,6 +5,7 @@ namespace App\Services;
 use App\Models\Protocol;
 use App\Models\Server;
 use App\Models\Config;
+use App\Models\AnycastLog;
 use App\Facades\VariedProxy;
 use Symfony\Component\Yaml\Yaml;
 use Illuminate\Support\Facades\Cache;
@@ -257,11 +258,16 @@ class ClashService
         return [];
     }
 
-    public function updateAnyCastIPV4(string $provider, string $ipv4)
+    public function updateAnyCastIPV4(string $provider, string $ipv4, string $down = '', string $icmp = '')
     {
         $key = "{$provider}:anycast:ipv4";
         if (Cache::get($key) != $ipv4) {
-            Cache::put($key, $ipv4, 86400);
+            Cache::put($key, $ipv4, 7*86400);
+            AnycastLog::create([
+                'ipv4' => $ipv4,
+                'down' => $down,
+                'icmp' => $icmp,
+            ]);
         }
         return $ipv4;
     }
