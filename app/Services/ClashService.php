@@ -263,12 +263,14 @@ class ClashService
         $key = "{$provider}:anycast:ipv4";
         if (Cache::get($key) != $ipv4) {
             Cache::put($key, $ipv4, 7*86400);
-            AnycastLog::create([
-                'provider' => $provider,
-                'ipv4'     => $ipv4,
-                'down'     => $down,
-                'icmp'     => $icmp,
-            ]);
+            if (!empty($down) && !empty($icmp)) {
+                AnycastLog::create([
+                    'provider' => $provider,
+                    'ipv4'     => $ipv4,
+                    'down'     => $down,
+                    'icmp'     => $icmp,
+                ]);
+            }
         }
         return $ipv4;
     }

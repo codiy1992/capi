@@ -88,6 +88,6 @@ class ClashController extends Controller
             'icmp'     => 'nullable|string',
             'down'     => 'nullable|string',
         ]);
-        return response($service->updateAnyCastIPV4($inputs['provider'], $inputs['ipv4']));
+        return response($service->updateAnyCastIPV4($inputs['provider'], $inputs['ipv4'], $inputs['down'], $inputs['icmp']));
     }
 }
