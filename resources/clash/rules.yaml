@@ -1,5 +1,6 @@
 rules:
   # 自定义规则
+  - DOMAIN-SUFFIX,onenote.com,DIRECT
   - DOMAIN-SUFFIX,linkedin.com,Proxy
   - DOMAIN-SUFFIX,slack.com,Proxy
   - DOMAIN,safebrowsing.urlsec.qq.com,DIRECT # 如果您并不信任此服务提供商或防止其下载消耗过多带宽资源，可以进入 Safari 设置，关闭 Fraudulent Website Warning 功能，并使用 REJECT 策略。
@@ -381,7 +382,6 @@ rules:
   - DOMAIN-SUFFIX,nytimes.com,Proxy
   - DOMAIN-SUFFIX,omnigroup.com,Proxy
   - DOMAIN-SUFFIX,onedrive.com,Proxy
-  - DOMAIN-SUFFIX,onenote.com,Proxy
   - DOMAIN-SUFFIX,ooyala.com,Proxy
   - DOMAIN-SUFFIX,openvpn.net,Proxy
   - DOMAIN-SUFFIX,openwrt.org,Proxy
