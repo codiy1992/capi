@@ -24,6 +24,12 @@ dns:
   # Hostnames in this list will not be resolved with fake IPs
   # i.e. questions to these domain names will always be answered with their
   # real IP addresses
+  # fake-ip模式会的DNS响应ttl都为1(即1秒后就失效),
+  # 但有些应用程序并不遵守DNS响应的ttl值来缓存DNS解析记录
+  # 因为域名被解析成了内网IP,可能被判断为流量劫持,而引发一些异常
+  # 因此 fake-ip 模式提供了 fake-ip-filter 来将会引发异常的域名排除在外
+  # 排除在外的域名会会退到 redir-host 模式
+  # redir-host 模式下, 域名的DNS请求被并行发给,default-nameserver 和 nameserver 提供的 DNS 服务器
   fake-ip-filter:
     - "*.codiy.net"
     # 以下域名列表参考自 vernesong/OpenClash 项目，并由 Hackl0us 整理补充

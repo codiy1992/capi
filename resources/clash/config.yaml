@@ -3,7 +3,44 @@
 ## 配置参考:
 ## https://github.com/Dreamacro/clash/wiki/configuration
 ## https://github.com/Hackl0us/SS-Rule-Snippet/wiki/clash(X)
-#---------------------------------------------------#
+#
+# https://www.youtube.com/watch?v=qItL005LUik
+# https://www.youtube.com/watch?v=aKlH6KRt9Jc
+# https://www.youtube.com/watch?v=50iVDmqzDW8
+#
+# 代理模式:
+# 1. 系统代理模式(Clash接管系统代理http/socks5)
+# 2. 透明代理模式(TUN, 创建一个虚拟网卡, 所有流量都要经过这个网卡)
+# 所以开启 TUN 模式能保证那些不默认使用系统代理的软件的流量也经过Clash
+#
+# 系统代理被Clash接管后, 客户端/浏览器在发起请求的时候并不会先DNS解析域名, 而是直接将请求转发给Clash
+# Clash 拿到请求后, 根据 rules 的分流规则, 来决定是否继续下一步的转发
+# 如果目标域名没命中前面的基于 DOMAIN 的匹配规则, 则当碰到 rules 中与目标IP相关的匹配规则(IP-CIDR|GEOIP)时,
+# Clash 必须先将请求域名解析为IP, 才能进行规则匹配,
+#
+# 对于系统代理模式(即clash接管了本机的系统代理), 不管有没有开启Clash的DNS模块, 都会使用系统本机的DNS进行解析
+# 因为 DNS查询请求和ping 一样是运行在网络层的数据包, 而系统代理(http/socks5)运行在应用层
+#
+# 对于透明代理模式(放在路由器上,或者放在本机但开启了TUN模式),
+# 这时, 如果未开启DNS模块,则还是会使用本机DNS进行域名解析
+# 如果开启了DNS模块,并使用 redir-host 模式, 域名的DNS请求被并行发给,default-nameserver 和 nameserver 提供的 DNS 服务器
+# 这种情况, 仍然存在DNS泄露的可能, 只是给你提供了自定义DNS的入口(据说redir-host已经被移除,只剩fake-ip模式了)
+# 如果开启了DNS模块,并使用 fake-ip 模式, 只要域名不在 fake-ip-filter 列表, 都会返回一个假IP(这样基本会匹配不上这个基于目标IP的规则)
+# 如果 rules 最后两条是
+#  - GEOIP,CN,DIRECT
+#  - MATCH,Proxy
+# 那这个请求就会变成走代理了,因为返回的 fake-ip 不会被 CN 的IP匹配上.
+#
+#
+# 总之 clash 在将流量转发给代理服务器节点时, 会原封不动的转发(带着请求域名), 而这之前Clash可能有进行DNS解析, 但只用来做rules的分流判断
+# (所以即使DNS解析回来的IP被国内DNS污染了, 还是能正常使用代理, 但如果DNS请求发给了国内DNS则会存在DNS泄露, 国内DNS服务器知道你想访问xxx)
+#
+# 检测 DNS 泄露的网站 ipleak.net
+# 打开 ipleak.net 时, 将发起一系列唯一的各级DNS缓存里都没有的域名请求如(https://ht08qx7unr9sn81gb8engfokyy2130wxa5irrry5-17.ipleak.net/dnsdetection/)
+# 因为各级DNS都没有相应缓存, 所以最终DNS查询请求会被转给ipleak的权威DNS服务器,
+# ipleak的权威DNS服务器在响应正确IP的同时把转发该DNS请求的源服务器IP记录了下来(上一级的DNS服务器IP)
+# 因为 ipleak.net 将 *.ipleak.net 解析到其应用服务器中, 所以应用服务器又把权威DNS服务器记录的IP通过HTTP响应了回来
+#---------------------------------------------------
 
 # Port of HTTP(S) proxy server on the local end
 port: 7890
@@ -18,7 +55,7 @@ socks-port: 7891
 # tproxy-port: 7893
 
 # HTTP(S) and SOCKS4(A)/SOCKS5 server on the same port
-# mixed-port: 7890
+mixed-port: 7890
 
 # authentication of local SOCKS5/HTTP(S) server
 # authentication:
