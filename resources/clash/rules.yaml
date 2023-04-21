@@ -4,8 +4,9 @@ rules:
   # 2. 基于目标IP的匹配规则, 后面加no-resolve, 防止发起DNS请求
   #
   # 自定义规则
-  - DOMAIN-SUFFIX,testc.cc,Proxy
-  - DOMAIN-SUFFIX,tectc.me,Proxy
+  - DOMAIN-SUFFIX,bluepapa.net,DIRECT
+  - DOMAIN-SUFFIX,testc.cc,DIRECT
+  - DOMAIN-SUFFIX,tectc.me,DIRECT
   - DOMAIN-SUFFIX,yahabibiy.com,Proxy
   - DOMAIN-SUFFIX,model7778.com,Proxy
   - DOMAIN-SUFFIX,netappeasy.com,DIRECT
