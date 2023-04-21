@@ -132,7 +132,7 @@ dns:
   # The answers from fallback servers are used when the GEOIP country
   # is not `CN`.
   fallback:
-    - udp://192.168.50.10 # 仅限wangle的QA网络
+    - udp://192.168.50.10 # 仅限wangle的QA网络, testc.cc, tectc.me 外网有解析时, 此DNS的解析会被忽略
 
   # If IP addresses resolved with servers in `nameservers` are in the specified
   # subnets below, they are considered invalid and results from `fallback`
@@ -157,6 +157,24 @@ dns:
     # - '+.youtube.com'
 
   # Lookup domains via specific nameservers
-  # nameserver-policy:
-  #   'www.baidu.com': '114.114.114.114'
-  #   '+.internal.crop.com': '10.0.0.1'
+  nameserver-policy:
+    # 外网删除 对应的解析, 以下内容就可以删掉, 依赖fallback 即可
+    "+.testc.cc": 192.168.50.10
+    "+.tectc.me": 192.168.50.10
+    "+.dev01.testc.cc": 192.168.50.10
+    "+.dev01.tectc.me": 192.168.50.10
+    "+.dev03.testc.cc": 192.168.50.10
+    "+.dev03.tectc.me": 192.168.50.10
+    "+.cnbiz.testc.cc": 192.168.50.10
+    "+.cnbiz.tectc.me": 192.168.50.10
+    "+.habibi.testc.cc": 192.168.50.10
+    "+.habibi.tectc.me": 192.168.50.10
+    "+.api.habibi.tectc.me": 192.168.50.10
+    "+.core.habibi.tectc.me": 192.168.50.10
+    "+.activity.habibi.tectc.me": 192.168.50.10
+    "+.admin.habibi.tectc.me": 192.168.50.10
+    "+.uap.habibi.tectc.me": 192.168.50.10
+    "+.booking.dev01.testc.cc": 192.168.50.10
+    "+.booking.dev03.testc.cc": 192.168.50.10
+    "+.dating.dev01.testc.cc": 192.168.50.10
+    "+.dating.dev03.testc.cc": 192.168.50.10
