@@ -131,6 +131,8 @@ dns:
   # to the servers in this section along with servers in `nameservers`.
   # The answers from fallback servers are used when the GEOIP country
   # is not `CN`.
+  # domain 被同时发给 nameserver 和 fallback 的DNS, 但如果从 nameserver 解析出来的 IP 不是 CN 的IP
+  # 包括内网IP, 这会使用 fallback 的解析结果
   fallback:
     - udp://192.168.50.10 # 仅限wangle的QA网络, testc.cc, tectc.me 外网有解析时, 此DNS的解析会被忽略
 
