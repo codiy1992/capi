@@ -175,7 +175,7 @@ class ClashService
                 !empty($proxy['ws-opts']) && $proxy['ws-opts']['headers']['host'] = $proxy['server'];
                 $protocol->name == 'trojan' && $proxy['sni'] = $proxy['server'];
                 $protocol->name == 'vmess' && $proxy['servername'] = $proxy['server'];
-                $proxy['udp'] = 'true';
+                $proxy['udp'] = true;
                 $proxies[] = $proxy;
             }
         }
