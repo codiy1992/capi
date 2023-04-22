@@ -175,7 +175,7 @@ class ClashService
                 !empty($proxy['ws-opts']) && $proxy['ws-opts']['headers']['host'] = $proxy['server'];
                 $protocol->name == 'trojan' && $proxy['sni'] = $proxy['server'];
                 $protocol->name == 'vmess' && $proxy['servername'] = $proxy['server'];
-                $proxy['udp'] = true;
+                $proxy['udp'] = true; # 允许在客户端开启UDP代理转发(需要服务端的代理节点支持UDP转发,一般不需要特别设置https://github.com/XTLS/Xray-core/discussions/237)
                 $proxies[] = $proxy;
             }
         }
