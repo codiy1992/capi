@@ -20,6 +20,8 @@ class ClashController extends Controller
             'agent'  => $user_agent,
         ]);
         if (($user_agent == 'Go-http-client/1.1' &&  $accept_encoding == 'gzip') ||
+            // Clash.Meta
+            preg_match('/clash.meta/i', $user_agent) ||
             // ClashForDocker
             preg_match('/ClashForDocker/i', $user_agent) ||
             // ClashForAndroid

@@ -80,7 +80,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'OxprCzKv7yxGz0i7',
+                'password'  => 'MorHQzWFvJ8ox3h4',
                 'extra'     => json_encode([]),
             ],
             [
@@ -92,7 +92,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'OxprCzKv7yxGz0i7',
+                'password'  => 'MorHQzWFvJ8ox3h4',
                 'extra'     => json_encode([
                     'tls'       => true,
                     'network'   => 'grpc',
@@ -110,7 +110,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'OxprCzKv7yxGz0i7',
+                'password'  => 'MorHQzWFvJ8ox3h4',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'ws',
@@ -129,7 +129,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'OxprCzKv7yxGz0i7',
+                'password'  => 'MorHQzWFvJ8ox3h4',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'h2',
