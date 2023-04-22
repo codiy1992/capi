@@ -145,6 +145,7 @@ class ClashService
         if (!$config = Config::where(['name' => $config_name])->first()) {
             return ;
         }
+        $meta_core = request()->input('meta', false);
         empty($group_names) && $group_names = $config->groups;
         $groups = array_intersect(explode(',', $group_names), explode(',', $config->groups));
         $servers = Server::whereIn('group', $groups)
@@ -163,6 +164,9 @@ class ClashService
         foreach($servers as $server) {
             foreach($protocols as $protocol) {
                 if (!$protocol->status && !($config->debug && $server->debug)) {
+                    continue;
+                }
+                if ($protocol->name == 'vless' && !$meta_core) {
                     continue;
                 }
                 $proxy = VariedProxy::format($protocol);
