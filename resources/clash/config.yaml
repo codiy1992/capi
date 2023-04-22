@@ -40,6 +40,8 @@
 # 因为各级DNS都没有相应缓存, 所以最终DNS查询请求会被转给ipleak的权威DNS服务器,
 # ipleak的权威DNS服务器在响应正确IP的同时把转发该DNS请求的源服务器IP记录了下来(上一级的DNS服务器IP)
 # 因为 ipleak.net 将 *.ipleak.net 解析到其应用服务器中, 所以应用服务器又把权威DNS服务器记录的IP通过HTTP响应了回来
+#
+# 检测 WebRTC 泄露 https://browserleaks.com/webrtc
 #---------------------------------------------------
 
 # Port of HTTP(S) proxy server on the local end
