@@ -54,11 +54,14 @@ class ClashService
     public function proxyProviders(Config $config, array $groups, $interval = 3600)
     {
         $providers = [];
+        $meta_core = request()->input('meta', false);
         $server_host = request()->getSchemeAndHttpHost();
         foreach($groups as $group) {
             $group = strtolower($group);
+            $url = sprintf("{$server_host}/proxies/%s?groups=%s", $config->name, $group);
+            !empty($meta_core) && $url = "{$url}&meta=true";
             $providers["provider_{$group}"] = [
-                'url'      => sprintf("{$server_host}/proxies/%s?groups=%s", $config->name, $group),
+                'url'      => $url,
                 'path'     => "./providers/{$group}.yaml",
                 'interval' => $interval,
                 'type'     => 'http',
