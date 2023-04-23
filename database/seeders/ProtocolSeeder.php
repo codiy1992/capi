@@ -27,7 +27,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => 'chacha20-ietf-poly1305',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'MorHQzWFvJ8ox3h4',
+                'password'  => 'sKl73yonPFEaTL10',
                 'extra'     => json_encode([]),
             ],
             [
@@ -39,13 +39,13 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => 'chacha20-ietf-poly1305',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'MorHQzWFvJ8ox3h4',
+                'password'  => 'sKl73yonPFEaTL10',
                 'extra' => json_encode([
                     'plugin'      => 'v2ray-plugin',
                     'plugin-opts' => [
                         'tls'              => true,
                         'mode'             => 'websocket',
-                        'path'             => '/ss_ws',
+                        'path'             => '/path_15rzfSRG',
                         'skip-cert-verify' => true
                     ],
                 ]),
@@ -59,13 +59,13 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => 'chacha20-ietf-poly1305',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'MorHQzWFvJ8ox3h4',
+                'password'  => 'sKl73yonPFEaTL10',
                 'extra' => json_encode([
                     'plugin'      => 'v2ray-plugin',
                     'plugin-opts' => [
                         'tls'              => true,
                         'mode'             => 'grpc',
-                        'serviceName'      => 'eed88573-8380-4379-b179-aa0c10f1716f',
+                        'serviceName'      => 'a9f48415-35c7-4e23-9e27-bf25898bf88d',
                         'skip-cert-verify' => true
                     ],
                 ]),
@@ -80,7 +80,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'MorHQzWFvJ8ox3h4',
+                'password'  => 'sKl73yonPFEaTL10',
                 'extra'     => json_encode([]),
             ],
             [
@@ -92,12 +92,12 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'MorHQzWFvJ8ox3h4',
+                'password'  => 'sKl73yonPFEaTL10',
                 'extra'     => json_encode([
                     'tls'       => true,
                     'network'   => 'grpc',
                     'grpc-opts' => [
-                        'grpc-service-name' => 'e7b2ae75-fbaf-4c23-8428-d2c1c9ff22f2',
+                        'grpc-service-name' => 'a9f48415-35c7-4e23-9e27-bf25898bf88d',
                     ],
                 ]),
             ],
@@ -110,13 +110,13 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'MorHQzWFvJ8ox3h4',
+                'password'  => 'sKl73yonPFEaTL10',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'ws',
                     'skip-cert-verify' => true,
                     'ws-opts'          => [
-                        'path' => '/trojan_ws',
+                        'path' => '/path_Ls7uBqH4',
                     ],
                 ]),
             ],
@@ -129,13 +129,13 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'MorHQzWFvJ8ox3h4',
+                'password'  => 'sKl73yonPFEaTL10',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'h2',
                     'skip-cert-verify' => true,
                     'h2-opts' => [
-                        'path'             => '/trojan_h2c',
+                        'path'             => 'path_NJZjvzm6',
                         'host'             => [
                             'cm.bilibili.com',
                             'data.bilibili.com',
@@ -155,7 +155,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 0,
                 'cipher'    => 'none',
                 'alterId'   => 0,
-                'uuid'      => '20bdb54b-9a2a-4e24-9103-980df15647ea',
+                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'     => false,
@@ -170,7 +170,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => '20bdb54b-9a2a-4e24-9103-980df15647ea',
+                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -186,14 +186,14 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => '20bdb54b-9a2a-4e24-9103-980df15647ea',
+                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'grpc',
                     'skip-cert-verify' => true,
                     'grpc-opts'        => [
-                        'grpc-service-name' => 'e4512876-ef85-4ee9-afd4-ac5f3371d33e',
+                        'grpc-service-name' => 'a9f48415-35c7-4e23-9e27-bf25898bf88d',
                     ],
                 ]),
             ],
@@ -205,14 +205,14 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => '20bdb54b-9a2a-4e24-9103-980df15647ea',
+                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'ws',
                     'skip-cert-verify' => true,
                     'ws-opts'          => [
-                        'path' => '/vmess_ws',
+                        'path' => '/path_b814PbYC',
                     ],
                 ]),
             ],
@@ -224,14 +224,14 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => '20bdb54b-9a2a-4e24-9103-980df15647ea',
+                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'h2',
                     'skip-cert-verify' => true,
                     'h2-opts' => [
-                        'path'             => '/vmess_h2c',
+                        'path'             => '/path_w0ehdqRy',
                         'host'             => [
                             'cm.bilibili.com',
                             'data.bilibili.com',
@@ -250,14 +250,14 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => '20bdb54b-9a2a-4e24-9103-980df15647ea',
+                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'h2',
                     'skip-cert-verify' => true,
                     'h2-opts' => [
-                        'path'             => '/vmess_h2_tls',
+                        'path'             => '/path_2fuV5sKE',
                         'host'             => [
                             'cm.bilibili.com',
                             'data.bilibili.com',
@@ -276,7 +276,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => '20bdb54b-9a2a-4e24-9103-980df15647ea',
+                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -293,7 +293,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => '20bdb54b-9a2a-4e24-9103-980df15647ea',
+                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -311,14 +311,14 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => '20bdb54b-9a2a-4e24-9103-980df15647ea',
+                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'grpc',
                     'skip-cert-verify' => true,
                     'grpc-opts'        => [
-                        'grpc-service-name' => 'd21dd88f-ad25-4fa0-9a3e-8fd84cfadf8a',
+                        'grpc-service-name' => 'a9f48415-35c7-4e23-9e27-bf25898bf88d',
                     ],
                 ]),
             ],
@@ -330,14 +330,14 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => '20bdb54b-9a2a-4e24-9103-980df15647ea',
+                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'ws',
                     'skip-cert-verify' => true,
                     'ws-opts'          => [
-                        'path' => '/vless_ws',
+                        'path' => '/path_iLYxj9ip',
                     ],
                 ]),
             ],
