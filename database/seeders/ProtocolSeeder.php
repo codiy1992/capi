@@ -155,7 +155,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 0,
                 'cipher'    => 'none',
                 'alterId'   => 0,
-                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
+                'uuid'      => '2bca9aac-75f6-4ae3-88f4-ea660daa0457',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'     => false,
@@ -170,7 +170,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
+                'uuid'      => '2bca9aac-75f6-4ae3-88f4-ea660daa0457',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -186,7 +186,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
+                'uuid'      => '2bca9aac-75f6-4ae3-88f4-ea660daa0457',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -205,7 +205,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
+                'uuid'      => '2bca9aac-75f6-4ae3-88f4-ea660daa0457',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -224,7 +224,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
+                'uuid'      => '2bca9aac-75f6-4ae3-88f4-ea660daa0457',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -250,7 +250,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
+                'uuid'      => '2bca9aac-75f6-4ae3-88f4-ea660daa0457',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -276,7 +276,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
+                'uuid'      => '2bca9aac-75f6-4ae3-88f4-ea660daa0457',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -293,7 +293,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
+                'uuid'      => '2bca9aac-75f6-4ae3-88f4-ea660daa0457',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -311,7 +311,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
+                'uuid'      => '2bca9aac-75f6-4ae3-88f4-ea660daa0457',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
@@ -330,7 +330,7 @@ class ProtocolSeeder extends Seeder
                 'tls'       => 1,
                 'cipher'    => 'auto',
                 'alterId'   => 0,
-                'uuid'      => 'd0154ea9-35d4-4b5b-9d9b-00bf4cfea671',
+                'uuid'      => '2bca9aac-75f6-4ae3-88f4-ea660daa0457',
                 'password'  => '',
                 'extra'     => json_encode([
                     'tls'              => true,
