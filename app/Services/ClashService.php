@@ -175,7 +175,7 @@ class ClashService
                 $proxy = VariedProxy::format($protocol);
                 $proxy['name'] = sprintf("%s.%s.%s.%s", $server->group, $server->name, $protocol->name, $protocol->transport);
                 $proxy['type'] = $protocol->name;
-                $proxy['server'] = $protocol->tls ? sprintf('%s.0x256.com', $server->ipv4) : $server->ipv4;
+                $proxy['server'] = $protocol->tls ? sprintf('%s.0x012.com', $server->ipv4) : $server->ipv4;
                 if (!empty($proxy['plugin']) && in_array($proxy['plugin'], ['v2ray-plugin'])) {
                     $proxy['plugin-opts']['host'] = $proxy['server'];
                 }
@@ -206,8 +206,8 @@ class ClashService
             if (in_array($transport, ['websocket'])) {
                 $cloudfront = $proxy;
                 $cloudfront['name'] = "{$cloudfront['name']}_cloudfront";
-                $cloudfront['server'] = str_replace('.0x256.com', '', $cloudfront['server']);
-                $cloudfront['server'] = str_replace('.', '', $cloudfront['server']) . '.0x256.com';
+                $cloudfront['server'] = str_replace('.0x012.com', '', $cloudfront['server']);
+                $cloudfront['server'] = str_replace('.', '', $cloudfront['server']) . '.0x012.com';
                 $cloudfront['server'] = "cft{$cloudfront['server']}";
 
                 !empty($cloudfront['plugin-opts']['host']) && $cloudfront['plugin-opts']['host'] = $cloudfront['server'];
@@ -222,8 +222,8 @@ class ClashService
             // cloudflare
             $cloudflare = $proxy;
             $cloudflare['name'] = "{$cloudflare['name']}_cloudflare";
-            $cloudflare['server'] = str_replace('.0x256.com', '', $cloudflare['server']);
-            $cloudflare['server'] = str_replace('.', '', $cloudflare['server']) . '.0x256.com';
+            $cloudflare['server'] = str_replace('.0x012.com', '', $cloudflare['server']);
+            $cloudflare['server'] = str_replace('.', '', $cloudflare['server']) . '.0x012.com';
 
             !empty($cloudflare['plugin-opts']['host']) && $cloudflare['plugin-opts']['host'] = $cloudflare['server'];
             !empty($cloudflare['ws-opts']) && $cloudflare['ws-opts']['headers']['host'] = $cloudflare['server'];
@@ -239,8 +239,8 @@ class ClashService
             if (!empty($config->extra['worker'])) {
                 // worker
                 $worker['name'] = "{$worker['name']}_worker";
-                $worker['server'] = str_replace('.0x256.com', '', $worker['server']);
-                $worker['server'] = str_replace('.', '', $worker['server']) . '.0x256.com';
+                $worker['server'] = str_replace('.0x012.com', '', $worker['server']);
+                $worker['server'] = str_replace('.', '', $worker['server']) . '.0x012.com';
                 $worker['server'] = "w{$worker['server']}";
 
                 !empty($worker['plugin-opts']['host']) && $worker['plugin-opts']['host'] = $worker['server'];
