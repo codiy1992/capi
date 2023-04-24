@@ -27,7 +27,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => 'chacha20-ietf-poly1305',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'sKl73yonPFEaTL10',
+                'password'  => 'akFjEBrZbqleBdcL',
                 'extra'     => json_encode([]),
             ],
             [
@@ -39,7 +39,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => 'chacha20-ietf-poly1305',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'sKl73yonPFEaTL10',
+                'password'  => 'akFjEBrZbqleBdcL',
                 'extra' => json_encode([
                     'plugin'      => 'v2ray-plugin',
                     'plugin-opts' => [
@@ -59,7 +59,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => 'chacha20-ietf-poly1305',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'sKl73yonPFEaTL10',
+                'password'  => 'akFjEBrZbqleBdcL',
                 'extra' => json_encode([
                     'plugin'      => 'v2ray-plugin',
                     'plugin-opts' => [
@@ -80,7 +80,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'sKl73yonPFEaTL10',
+                'password'  => 'akFjEBrZbqleBdcL',
                 'extra'     => json_encode([]),
             ],
             [
@@ -92,7 +92,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'sKl73yonPFEaTL10',
+                'password'  => 'akFjEBrZbqleBdcL',
                 'extra'     => json_encode([
                     'tls'       => true,
                     'network'   => 'grpc',
@@ -110,7 +110,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'sKl73yonPFEaTL10',
+                'password'  => 'akFjEBrZbqleBdcL',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'ws',
@@ -129,7 +129,7 @@ class ProtocolSeeder extends Seeder
                 'cipher'    => '',
                 'alterId'   => 0,
                 'uuid'      => '',
-                'password'  => 'sKl73yonPFEaTL10',
+                'password'  => 'akFjEBrZbqleBdcL',
                 'extra'     => json_encode([
                     'tls'              => true,
                     'network'          => 'h2',
