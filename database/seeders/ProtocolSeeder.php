@@ -97,7 +97,7 @@ class ProtocolSeeder extends Seeder
                     'tls'       => true,
                     'network'   => 'grpc',
                     'grpc-opts' => [
-                        'grpc-service-name' => 'a9f48415-35c7-4e23-9e27-bf25898bf88d',
+                        'grpc-service-name' => 'tr_slmsx405',
                     ],
                 ]),
             ],
@@ -193,7 +193,7 @@ class ProtocolSeeder extends Seeder
                     'network'          => 'grpc',
                     'skip-cert-verify' => true,
                     'grpc-opts'        => [
-                        'grpc-service-name' => 'a9f48415-35c7-4e23-9e27-bf25898bf88d',
+                        'grpc-service-name' => 'vm_uSQAS4A1',
                     ],
                 ]),
             ],
@@ -318,7 +318,7 @@ class ProtocolSeeder extends Seeder
                     'network'          => 'grpc',
                     'skip-cert-verify' => true,
                     'grpc-opts'        => [
-                        'grpc-service-name' => 'a9f48415-35c7-4e23-9e27-bf25898bf88d',
+                        'grpc-service-name' => 'vl_Ny6Z4idS',
                     ],
                 ]),
             ],
