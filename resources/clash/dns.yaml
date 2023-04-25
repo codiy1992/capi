@@ -15,8 +15,8 @@ dns:
   # These nameservers are used to resolve the DNS nameserver hostnames below.
   # Specify IP addresses only
   default-nameserver:
+    - 233.5.5.5
     - 114.114.114.114
-    - 8.8.8.8
   enhanced-mode: fake-ip # or redir-host
   fake-ip-range: 198.18.0.1/16 # Fake IP addresses pool CIDR
   # use-hosts: true # lookup hosts and return IP record
@@ -114,15 +114,18 @@ dns:
     ## STUN Server
     - "stun.*.*"
     - "stun.*.*.*"
+    - +.stun.*.*
+    - +.stun.*.*.*
+    - +.stun.*.*.*.*
+    - +.stun.*.*.*.*.*
 
   # Supports UDP, TCP, DoT, DoH. You can specify the port to connect to.
   # All DNS questions are sent directly to the nameserver, without proxies
   # involved. Clash answers the DNS question with the first result gathered.
   nameserver:
-    - https://doh.pub/dns-query
-    - https://1.1.1.1/dns-query
-    # - 114.114.114.114 # default value
-    # - 8.8.8.8 # default value
+    - 114.114.114.114 # default value
+    - 223.5.5.5
+    - 8.8.8.8 # default value
     # - tls://dns.rubyfish.cn:853 # DNS over TLS
     # - https://1.1.1.1/dns-query # DNS over HTTPS
     # - dhcp://en0 # dns from dhcp
@@ -135,7 +138,7 @@ dns:
   # 包括内网IP, 这会使用 fallback 的解析结果
   fallback:
     - dhcp://en0 # dns from dhcp
-    - tls://dns.rubyfish.cn:853 # DNS over TLS
+    - https://1.1.1.1/dns-query
 
   # If IP addresses resolved with servers in `nameservers` are in the specified
   # subnets below, they are considered invalid and results from `fallback`
@@ -149,7 +152,7 @@ dns:
   #
   # This is a countermeasure against DNS pollution attacks.
   fallback-filter:
-    geoip: false
+    geoip: true
     geoip-code: CN
     ipcidr:
       - 240.0.0.0/4
@@ -160,24 +163,4 @@ dns:
     # - '+.youtube.com'
 
   # Lookup domains via specific nameservers
-  nameserver-policy:
-    # 外网删除 对应的解析, 以下内容就可以删掉, 依赖fallback 即可
-    "+.testc.cc": 192.168.50.10
-    "+.tectc.me": 192.168.50.10
-    "+.dev01.testc.cc": 192.168.50.10
-    "+.dev01.tectc.me": 192.168.50.10
-    "+.dev03.testc.cc": 192.168.50.10
-    "+.dev03.tectc.me": 192.168.50.10
-    "+.cnbiz.testc.cc": 192.168.50.10
-    "+.cnbiz.tectc.me": 192.168.50.10
-    "+.habibi.testc.cc": 192.168.50.10
-    "+.habibi.tectc.me": 192.168.50.10
-    "+.api.habibi.tectc.me": 192.168.50.10
-    "+.core.habibi.tectc.me": 192.168.50.10
-    "+.activity.habibi.tectc.me": 192.168.50.10
-    "+.admin.habibi.tectc.me": 192.168.50.10
-    "+.uap.habibi.tectc.me": 192.168.50.10
-    "+.booking.dev01.testc.cc": 192.168.50.10
-    "+.booking.dev03.testc.cc": 192.168.50.10
-    "+.dating.dev01.testc.cc": 192.168.50.10
-    "+.dating.dev03.testc.cc": 192.168.50.10
+  # nameserver-policy:
