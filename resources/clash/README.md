@@ -129,13 +129,12 @@ tun:
     - any:53
 ```
 
-Clash for windows 开启TUN模式后(DNS模块关闭), 会默认把本地DNS改成 8.8.8.8
+Clash for windows 开启TUN模式后, 会默认把本地DNS改成 8.8.8.8, 并且使用Clash for Windows内置的DNS配置,覆盖订阅链接的DNS配置(默认没有`fallback`)
 TUN 模式会新建虚拟网卡utun,可通过 wireshark 抓包查看里面的数据包
 本地流量都会走到该网卡交给Clash内核处理. 本机在该网卡的IP默认为 198.18.0.1
 因为DNS模块开启了`fake-ip`, 域名将被解析成`198.18.0.1/16`下的IP
 
 1. 匹配到基于域名规则的域名如 `DOMAIN-SUFFIX,google.com,Proxy`, 不发起DNS请求, 直接代理走
-2. 匹配到 DIRECT 规则, 或者基于目标IP的规则(IP-CIDR, GEOIP), 仍然会向DNS模块中`nameserver` 和 `fallback`指定的DNS并行发起请求,同时还会在tun网卡向`dns-hijack`指定的DNS发起请求, 并且似乎会忽视DNS模块`fallback`相关设定,没办法正确走到`fallback`,是否代理看最终是DIRECT还是Proxy, 并且在最终规则是Proxy时,不论DNS是否解析出正确的IP,都会将原始请求转发给代理节点(在代理节点服务器再次做DNS,并处理请求)
-> 如果手动把tun的`dns-hijack`配置移除,则表现的不太正常,一会能根据`nameserver`和`fallback`规则走到`fallback`, 一会又只用`nameserver`的结果
+2. 匹配到 DIRECT 规则, 或者基于目标IP的规则(IP-CIDR, GEOIP), 仍然会向DNS模块中`nameserver` 和 `fallback`指定的DNS并行发起请求,同时还会在tun网卡向`dns-hijack`指定的DNS发起请求,是否代理看最终是DIRECT还是Proxy, 并且在最终规则是Proxy时,不论DNS是否解析出正确的IP,都会将原始请求转发给代理节点(在代理节点服务器再次做DNS,并处理请求)
 > 
-> **结论: 只要开启了TUN模式, `fallback` 就没办法正常被使用, 可借助`nameserver-policy:`来手动指定DNS**
+> **结论: 只要开启了TUN模式, `fallback` 就得手动设置
