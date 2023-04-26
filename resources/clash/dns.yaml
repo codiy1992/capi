@@ -138,7 +138,6 @@ dns:
   # 包括内网IP, 这会使用 fallback 的解析结果
   fallback:
     - dhcp://en0 # dns from dhcp
-    - https://1.1.1.1/dns-query
 
   # If IP addresses resolved with servers in `nameservers` are in the specified
   # subnets below, they are considered invalid and results from `fallback`
@@ -163,4 +162,24 @@ dns:
     # - '+.youtube.com'
 
   # Lookup domains via specific nameservers
-  # nameserver-policy:
+  nameserver-policy:
+    # 外网删除 对应的解析, 以下内容就可以删掉, 依赖fallback 即可
+    "+.testc.cc": 192.168.50.10
+    "+.tectc.me": 192.168.50.10
+    "+.dev01.testc.cc": 192.168.50.10
+    "+.dev01.tectc.me": 192.168.50.10
+    "+.dev03.testc.cc": 192.168.50.10
+    "+.dev03.tectc.me": 192.168.50.10
+    "+.cnbiz.testc.cc": 192.168.50.10
+    "+.cnbiz.tectc.me": 192.168.50.10
+    "+.habibi.testc.cc": 192.168.50.10
+    "+.habibi.tectc.me": 192.168.50.10
+    "+.api.habibi.tectc.me": 192.168.50.10
+    "+.core.habibi.tectc.me": 192.168.50.10
+    "+.activity.habibi.tectc.me": 192.168.50.10
+    "+.admin.habibi.tectc.me": 192.168.50.10
+    "+.uap.habibi.tectc.me": 192.168.50.10
+    "+.booking.dev01.testc.cc": 192.168.50.10
+    "+.booking.dev03.testc.cc": 192.168.50.10
+    "+.dating.dev01.testc.cc": 192.168.50.10
+    "+.dating.dev03.testc.cc": 192.168.50.10
