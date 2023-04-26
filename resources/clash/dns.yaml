@@ -139,6 +139,7 @@ dns:
   fallback:
     - dhcp://en0 # dns from dhcp
 
+
   # If IP addresses resolved with servers in `nameservers` are in the specified
   # subnets below, they are considered invalid and results from `fallback`
   # servers are used instead.
@@ -150,16 +151,16 @@ dns:
   # are always used if not match `fallback-filter.ipcidr`.
   #
   # This is a countermeasure against DNS pollution attacks.
-  fallback-filter:
-    geoip: true
-    geoip-code: CN
-    ipcidr:
-      - 240.0.0.0/4
-      - 0.0.0.0/32
-    # domain:
-    # - '+.google.com'
-    # - '+.facebook.com'
-    # - '+.youtube.com'
+  # fallback-filter:
+  #   geoip: true
+  #   geoip-code: CN
+  #   ipcidr:
+  #     - 240.0.0.0/4
+  #     - 0.0.0.0/32
+  # domain:
+  # - '+.google.com'
+  # - '+.facebook.com'
+  # - '+.youtube.com'
 
   # Lookup domains via specific nameservers
   # nameserver-policy:
