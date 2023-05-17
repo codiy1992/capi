@@ -37,9 +37,6 @@ class ClashController extends Controller
                 'Content-Type' => 'application/x-yaml',
             ]);
         }
-        return response($service->config($name), 200, [
-            'Content-Type' => 'application/x-yaml',
-        ]);
     }
 
     public function proxies(Request $request, string $config_name, ClashService $service)
