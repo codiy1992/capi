@@ -114,6 +114,7 @@ hosts:
   # '*.clash.dev': 127.0.0.1
   # '.dev': 127.0.0.1
   # 'alpha.clash.dev': '::1'
+  "cdn.testc.cc": 47.74.212.50
 
 profile:
   # Store the `select` results in $HOME/.config/clash/.cache
