@@ -164,24 +164,5 @@ dns:
   # - '+.youtube.com'
 
   # Lookup domains via specific nameservers
-  # nameserver-policy:
-  # 外网删除 对应的解析, 以下内容就可以删掉, 依赖fallback 即可
-  # "+.testc.cc": 192.168.50.10
-  # "+.tectc.me": 192.168.50.10
-  # "+.dev01.testc.cc": 192.168.50.10
-  # "+.dev01.tectc.me": 192.168.50.10
-  # "+.dev03.testc.cc": 192.168.50.10
-  # "+.dev03.tectc.me": 192.168.50.10
-  # "+.cnbiz.testc.cc": 192.168.50.10
-  # "+.cnbiz.tectc.me": 192.168.50.10
-  # "+.habibi.testc.cc": 192.168.50.10
-  # "+.habibi.tectc.me": 192.168.50.10
-  # "+.api.habibi.tectc.me": 192.168.50.10
-  # "+.core.habibi.tectc.me": 192.168.50.10
-  # "+.activity.habibi.tectc.me": 192.168.50.10
-  # "+.admin.habibi.tectc.me": 192.168.50.10
-  # "+.uap.habibi.tectc.me": 192.168.50.10
-  # "+.booking.dev01.testc.cc": 192.168.50.10
-  # "+.booking.dev03.testc.cc": 192.168.50.10
-  # "+.dating.dev01.testc.cc": 192.168.50.10
-  # "+.dating.dev03.testc.cc": 192.168.50.10
+  nameserver-policy:
+    "cdn.testc.cc": 223.5.5.5
