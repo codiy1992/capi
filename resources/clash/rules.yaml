@@ -10,7 +10,7 @@ rules:
   - DOMAIN-SUFFIX,yahabibiy.com,Proxy
   - DOMAIN-SUFFIX,model7778.com,Proxy
   - DOMAIN-SUFFIX,netappeasy.com,DIRECT
-  - DOMAIN-SUFFIX,onenote.com,DIRECT
+  # - DOMAIN-SUFFIX,onenote.com,DIRECT
   - DOMAIN-SUFFIX,linkedin.com,Proxy
   - DOMAIN-SUFFIX,ixigua.com,DIRECT
   - DOMAIN-SUFFIX,slack.com,Proxy
