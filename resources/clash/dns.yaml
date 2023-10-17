@@ -139,6 +139,7 @@ dns:
   fallback:
     - 192.168.1.1
     - 192.168.50.10
+    - 10.11.12.1
     - dhcp://en0 # dns from dhcp
 
 
