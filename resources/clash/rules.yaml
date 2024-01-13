@@ -4,7 +4,7 @@ rules:
   # 2. 基于目标IP的匹配规则, 后面加no-resolve, 防止发起DNS请求
   #
   # 自定义规则
-  - DOMAIN-SUFFIX,oracle.com,DIRECT
+  - DOMAIN-KEYWORD,oracle,DIRECT
   - DOMAIN-SUFFIX,bluepapa.net,Proxy
   - DOMAIN-SUFFIX,testc.cc,DIRECT
   - DOMAIN-SUFFIX,tectc.me,DIRECT
