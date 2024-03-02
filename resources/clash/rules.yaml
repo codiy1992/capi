@@ -5,12 +5,7 @@ rules:
   #
   # 自定义规则
   - DOMAIN-KEYWORD,oracle,DIRECT
-  - DOMAIN-SUFFIX,bluepapa.net,Proxy
-  - DOMAIN-SUFFIX,testc.cc,DIRECT
-  - DOMAIN-SUFFIX,tectc.me,DIRECT
-  - DOMAIN-SUFFIX,yahabibiy.com,Proxy
-  - DOMAIN-SUFFIX,model7778.com,Proxy
-  - DOMAIN-SUFFIX,netappeasy.com,DIRECT
+  - DOMAIN-SUFFIX,canadavisa.com,DIRECT
   # - DOMAIN-SUFFIX,onenote.com,DIRECT
   - DOMAIN-SUFFIX,linkedin.com,Proxy
   - DOMAIN-SUFFIX,ixigua.com,DIRECT
