@@ -6,6 +6,7 @@ rules:
   # 自定义规则
   - DOMAIN-KEYWORD,oracle,DIRECT
   - DOMAIN-SUFFIX,canadavisa.com,DIRECT
+  - DOMAIN-SUFFIX,bdxiguaimg.com,DIRECT
   # - DOMAIN-SUFFIX,onenote.com,DIRECT
   - DOMAIN-SUFFIX,linkedin.com,Proxy
   - DOMAIN-SUFFIX,ixigua.com,DIRECT
