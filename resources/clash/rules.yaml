@@ -22,6 +22,15 @@ rules:
   # - SRC-IP-CIDR,192.168.1.112/28,DIRECT
   # - SRC-IP-CIDR,192.168.1.128/25,DIRECT
 
+  # Microsoft
+  - DOMAIN-SUFFIX,microsoft.com,Proxy
+  - DOMAIN-SUFFIX,microsoftonline.com,Proxy
+  - DOMAIN-SUFFIX,office.com,Proxy
+  - DOMAIN-SUFFIX,office365.com,Proxy
+  - DOMAIN-KEYWORD,officecdn,Proxy
+  - DOMAIN-SUFFIX,live.com,Proxy
+  - DOMAIN-SUFFIX,live.net,Proxy
+  - DOMAIN-SUFFIX,livefilestore.com,Proxy
   # Apple
   - DOMAIN,developer.apple.com,Proxy
   - DOMAIN-SUFFIX,digicert.com,Proxy
